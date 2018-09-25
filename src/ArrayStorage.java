@@ -6,11 +6,7 @@ public class ArrayStorage {
     private int count = 0;
 
     void clear() {
-        for (Resume aStorage : storage) {
-            if (aStorage != null) {
-                Arrays.fill(storage, null);
-            }
-        }
+        Arrays.fill(storage, 0, size(), null);
     }
 
     void save(Resume r) {
@@ -31,8 +27,8 @@ public class ArrayStorage {
         for (int i = 0; i < count; i++) {
             if (storage[i].uuid.equals(uuid)) {
                 System.arraycopy(storage, i + 1, storage, i, storage.length - i - 1);
+                break;
             }
-            break;
         }
     }
 
