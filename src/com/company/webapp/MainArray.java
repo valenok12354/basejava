@@ -1,8 +1,8 @@
-package com.company.webapp.storage;
-
+package com.company.webapp;
 
 
 import com.company.webapp.model.Resume;
+import com.company.webapp.storage.ArrayStorage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
  * (just run, no need to understand)
  */
 public class MainArray {
-    static ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    private final static ArrayStorage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -42,6 +42,11 @@ public class MainArray {
                     ARRAY_STORAGE.save(r);
                     printAll();
                     break;
+                case "update":
+                    r = new Resume();
+                    ARRAY_STORAGE.update(r);
+                    printAll();
+                    break;
                 case "delete":
                     ARRAY_STORAGE.delete(uuid);
                     printAll();
@@ -62,7 +67,7 @@ public class MainArray {
         }
     }
 
-    static void printAll() {
+    private static void printAll() {
         Resume[] all = ARRAY_STORAGE.getAll();
         System.out.println("----------------------------");
         if (all.length == 0) {

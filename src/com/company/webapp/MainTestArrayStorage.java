@@ -1,6 +1,7 @@
-package com.company.webapp.storage;
+package com.company.webapp;
 
 import com.company.webapp.model.Resume;
+import com.company.webapp.storage.ArrayStorage;
 
 /**
  * Test for your com.company.webapp.storage.ArrayStorage implementation

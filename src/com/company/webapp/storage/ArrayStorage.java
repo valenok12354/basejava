@@ -5,54 +5,59 @@ import com.company.webapp.model.Resume;
 import java.util.Arrays;
 
 public class ArrayStorage {
-    private Resume[] storage = new Resume[10000];
+    private Resume[] storage = new Resume[10_000];
     private int count = 0;
 
-    void clear() {
-        Arrays.fill(storage, 0, size(), null);
+    public void clear() {
+        Arrays.fill(storage, 0, count, null);
+        count = 0;
     }
 
     public void save(Resume r) {
-        if (!isExistResume(r)) {
-            storage[count] = r;
-            count++;
-        } else System.out.println("Resume exist");
+        if (count <= storage.length) {
+            if (isExistResume(r) == -1) {
+                storage[count] = r;
+                count++;
+            } else {
+                System.out.println("Resume exist");
+            }
+        }
     }
 
-    private boolean isExistResume(Resume r) {
-        return Arrays.asList(storage).contains(r);
+    private int isExistResume(Resume r) {
+        for (int i = 0; i < size(); i++) {
+            if (storage[i].equals(r)) {
+                return Arrays.asList(storage).indexOf(r);
+            }
+        }
+        return -1;
     }
 
     public void update(Resume r) {
-        if (isExistResume(r)) {
+        if (isExistResume(r) != -1) {
             storage[Arrays.asList(storage).indexOf(r)] = r;
-        } else System.out.println("Resume doesn't exist");
+        } else {
+            System.out.println("Resume doesn't exist");
+        }
     }
 
     public Resume get(String uuid) {
-        if (isExistUuid(uuid)) {
-            for (int i = 0; i < count; i++) {
-                if (storage[i].getUuid().equals(uuid)) {
-                    return storage[i];
-                }
+        for (int i = 0; i < count; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                return storage[i];
             }
-        } else System.out.println("Resume doesn't exist");
+        }
         return null;
     }
 
-    private boolean isExistUuid(String uuid) {
-        return (uuid != null);
-    }
-
     public void delete(String uuid) {
-        if (isExistUuid(uuid)) {
-            for (int i = 0; i < count; i++) {
-                if (storage[i].getUuid().equals(uuid)) {
-                    System.arraycopy(storage, i + 1, storage, i, storage.length - i - 1);
-                    break;
-                }
+        for (int i = 0; i < count; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                System.arraycopy(storage, i + 1, storage, i, storage.length - i - 1);
+                storage[count] = null;
+                break;
             }
-        } else System.out.println("Resume doesn't exist");
+        }
     }
 
     public Resume[] getAll() {
