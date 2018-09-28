@@ -5,7 +5,7 @@ import com.company.webapp.model.Resume;
 import java.util.Arrays;
 
 public class ArrayStorage {
-    private Resume[] storage = new Resume[10_000];
+    private Resume[] storage = new Resume[3];
     private int count = 0;
 
     public void clear() {
@@ -14,38 +14,33 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
-        if (count <= storage.length) {
-            if (isExistResume(r) == -1) {
+        if (count < storage.length) {
+            if (existResume(r.getUuid()) == -1) {
                 storage[count] = r;
                 count++;
             } else {
                 System.out.println("Resume exist");
             }
+        } else {
+            System.out.println("There is no disk space");
         }
-    }
-
-    private int isExistResume(Resume r) {
-        for (int i = 0; i < size(); i++) {
-            if (storage[i].equals(r)) {
-                return Arrays.asList(storage).indexOf(r);
-            }
-        }
-        return -1;
     }
 
     public void update(Resume r) {
-        if (isExistResume(r) != -1) {
-            storage[Arrays.asList(storage).indexOf(r)] = r;
+        int i = existResume(r.getUuid());
+        if (i != -1) {
+            System.out.println("updated");
+            storage[i] = r;
         } else {
             System.out.println("Resume doesn't exist");
         }
     }
 
     public Resume get(String uuid) {
-        for (int i = 0; i < count; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                return storage[i];
-            }
+        if (existResume(uuid) != -1) {
+            return storage[existResume(uuid)];
+        } else {
+            System.out.println("No resume found");
         }
         return null;
     }
@@ -54,7 +49,7 @@ public class ArrayStorage {
         for (int i = 0; i < count; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 System.arraycopy(storage, i + 1, storage, i, storage.length - i - 1);
-                storage[count] = null;
+                storage[count - 1] = null;
                 break;
             }
         }
@@ -66,6 +61,15 @@ public class ArrayStorage {
 
     public int size() {
         return count;
+    }
+
+    private int existResume(String uuid) {
+        for (int i = 0; i < count; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
 
