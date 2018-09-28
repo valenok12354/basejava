@@ -5,7 +5,7 @@ import com.company.webapp.model.Resume;
 import java.util.Arrays;
 
 public class ArrayStorage {
-    private Resume[] storage = new Resume[3];
+    private Resume[] storage = new Resume[10_000];
     private int count = 0;
 
     public void clear() {
