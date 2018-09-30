@@ -13,10 +13,10 @@ public class ArrayStorage {
         count = 0;
     }
 
-    public void save(Resume r) {
+    public void save(Resume resume) {
         if (count < storage.length) {
-            if (existResume(r.getUuid()) == -1) {
-                storage[count] = r;
+            if (getIndex(resume.getUuid()) == -1) {
+                storage[count] = resume;
                 count++;
             } else {
                 System.out.println("Resume exist");
@@ -26,33 +26,30 @@ public class ArrayStorage {
         }
     }
 
-    public void update(Resume r) {
-        int i = existResume(r.getUuid());
+    public void update(Resume resume) {
+        int i = getIndex(resume.getUuid());
         if (i != -1) {
-            System.out.println("updated");
-            storage[i] = r;
+            storage[i] = resume;
         } else {
             System.out.println("Resume doesn't exist");
         }
     }
 
     public Resume get(String uuid) {
-        if (existResume(uuid) != -1) {
-            return storage[existResume(uuid)];
+        int index = getIndex(uuid);
+        if (index != -1) {
+            return storage[index];
         } else {
             System.out.println("No resume found");
+            return null;
         }
-        return null;
     }
 
     public void delete(String uuid) {
-        for (int i = 0; i < count; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                System.arraycopy(storage, i + 1, storage, i, storage.length - i - 1);
-                storage[count - 1] = null;
-                break;
-            }
-        }
+        int index = getIndex(uuid);
+        storage[index] = storage[count - 1];
+        storage[count - 1] = null;
+        count--;
     }
 
     public Resume[] getAll() {
@@ -63,7 +60,7 @@ public class ArrayStorage {
         return count;
     }
 
-    private int existResume(String uuid) {
+    private int getIndex(String uuid) {
         for (int i = 0; i < count; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return i;
