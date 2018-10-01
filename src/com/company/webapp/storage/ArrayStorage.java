@@ -47,9 +47,13 @@ public class ArrayStorage {
 
     public void delete(String uuid) {
         int index = getIndex(uuid);
-        storage[index] = storage[count - 1];
-        storage[count - 1] = null;
-        count--;
+        if (index != -1) {
+            storage[index] = storage[count - 1];
+            storage[count - 1] = null;
+            count--;
+        } else {
+            System.out.println("No resume found");
+        }
     }
 
     public Resume[] getAll() {
