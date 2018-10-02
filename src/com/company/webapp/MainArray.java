@@ -1,9 +1,7 @@
 package com.company.webapp;
 
-
 import com.company.webapp.model.Resume;
 import com.company.webapp.storage.SortedArrayStorage;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
