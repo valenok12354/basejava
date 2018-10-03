@@ -9,6 +9,10 @@ public abstract class AbstractArrayStorage implements Storage {
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
+    protected abstract void inputElement(Resume resume, int index);
+
+    protected abstract void deletedElement(int index);
+
     public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
@@ -25,7 +29,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void save(Resume resume) {
         int index = getIndex(resume.getUuid());
-        if (index > 0) {
+        if (index >= 0) {
             System.out.println("Resume exist");
         } else if (size == STORAGE_LIMIT) {
             System.out.println("There is no disk space");
@@ -34,8 +38,6 @@ public abstract class AbstractArrayStorage implements Storage {
             size++;
         }
     }
-
-    protected abstract void inputElement(Resume resume, int index);
 
     public void delete(String uuid) {
         int index = getIndex(uuid);
@@ -47,8 +49,6 @@ public abstract class AbstractArrayStorage implements Storage {
             size--;
         }
     }
-
-    protected abstract void deletedElement(int index);
 
     public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
