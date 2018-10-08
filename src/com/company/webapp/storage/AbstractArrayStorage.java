@@ -1,6 +1,10 @@
 package com.company.webapp.storage;
 
+import com.company.webapp.exception.ExistStorageException;
+import com.company.webapp.exception.NotExistStorageException;
+import com.company.webapp.exception.StorageException;
 import com.company.webapp.model.Resume;
+
 import java.util.Arrays;
 
 public abstract class AbstractArrayStorage implements Storage {
@@ -13,6 +17,8 @@ public abstract class AbstractArrayStorage implements Storage {
 
     protected abstract void deletedElement(int index);
 
+    protected abstract int getIndex(String uuid);
+
     public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
@@ -23,16 +29,16 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index >= 0) {
             storage[index] = resume;
         } else {
-            System.out.println("Resume doesn't exist");
+            throw new NotExistStorageException(resume.getUuid());
         }
     }
 
     public void save(Resume resume) {
         int index = getIndex(resume.getUuid());
         if (index >= 0) {
-            System.out.println("Resume exist");
+            throw new ExistStorageException(resume.getUuid());
         } else if (size == STORAGE_LIMIT) {
-            System.out.println("There is no disk space");
+            throw new StorageException("Storage overflow", resume.getUuid());
         } else {
             inputElement(resume, index);
             size++;
@@ -42,7 +48,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void delete(String uuid) {
         int index = getIndex(uuid);
         if (index < 0) {
-            System.out.println("No resume found");
+            throw new NotExistStorageException(uuid);
         } else {
             deletedElement(index);
             storage[size - 1] = null;
@@ -51,14 +57,14 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public Resume[] getAll() {
+
         return Arrays.copyOfRange(storage, 0, size);
     }
 
     public Resume get(String uuid) {
         int index = getIndex(uuid);
         if (index < 0) {
-            System.out.println("Resume " + uuid + " not exist");
-            return null;
+            throw new NotExistStorageException(uuid);
         }
         return storage[index];
     }
@@ -66,7 +72,5 @@ public abstract class AbstractArrayStorage implements Storage {
     public int size() {
         return size;
     }
-
-    protected abstract int getIndex(String uuid);
 
 }
