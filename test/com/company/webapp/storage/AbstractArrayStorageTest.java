@@ -75,18 +75,13 @@ public class AbstractArrayStorageTest extends Assert {
 
     @Test(expected = StorageException.class)
     public void storageExceptionTest() {
-        for (int i = 3; i < storage.size() + 1; i++) {
-            storage.save(new Resume("Uuid" + i));
-        }
-
         try {
             for (int i = 3; i < storage.size(); i++) {
-                storage.save(new Resume("Uuid" + i));
+                storage.save(new Resume("uuid" + i));
             }
-            fail("EXCEPTION NOT THROWN");
         } catch (Exception e) {
+            fail("ERROR CAUGHT, PLEASE CHANGE THE TEST CASE");
         }
-
-
+        storage.save(new Resume("uuid" + storage.size()));
     }
 }
