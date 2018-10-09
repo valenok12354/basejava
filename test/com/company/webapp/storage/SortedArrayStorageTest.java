@@ -4,6 +4,6 @@ public class SortedArrayStorageTest extends AbstractArrayStorageTest {
 
 
     public SortedArrayStorageTest() {
-        super(new SortedArrayStorage(), new SortedArrayStorage());
+        super(new SortedArrayStorage());
     }
 }

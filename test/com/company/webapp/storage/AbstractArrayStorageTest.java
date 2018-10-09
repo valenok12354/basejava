@@ -1,5 +1,6 @@
 package com.company.webapp.storage;
 
+import com.company.webapp.exception.ExistStorageException;
 import com.company.webapp.exception.NotExistStorageException;
 import com.company.webapp.exception.StorageException;
 import com.company.webapp.model.Resume;
@@ -9,22 +10,25 @@ import org.junit.Test;
 
 public class AbstractArrayStorageTest extends Assert {
     private Storage storage;
-    private Storage storage1; // just dummy array for the testing
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
+    private Resume resume1 = new Resume(UUID_1);
+    private Resume resume2 = new Resume(UUID_2);
+    private Resume resume3 = new Resume(UUID_3);
 
-    public AbstractArrayStorageTest(Storage storage, Storage storage1) {
+    private static final String DUMMY = "dummy";
+
+    AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
-        this.storage1 = storage1;
     }
 
     @Before
     public void setUp() {
         storage.clear();
-        storage.save(new Resume(UUID_1));
-        storage.save(new Resume(UUID_2));
-        storage.save(new Resume(UUID_3));
+        storage.save(resume1);
+        storage.save(resume2);
+        storage.save(resume3);
     }
 
     @Test
@@ -35,53 +39,74 @@ public class AbstractArrayStorageTest extends Assert {
     @Test
     public void clear() {
         storage.clear();
-        assertArrayEquals(storage1.getAll(), storage.getAll());
+        assertEquals(0, storage.size());
     }
 
     @Test
     public void update() {
-        storage.update(new Resume(UUID_1));
-        assertEquals(UUID_1, storage.get(UUID_1).getUuid());
+        Resume updateResume = resume1;
+        storage.update(updateResume);
+        assertEquals(updateResume, storage.get(UUID_1));
+    }
+
+    @Test(expected = NotExistStorageException.class)
+    public void updateNotExist() {
+        storage.update(new Resume("uuid4"));
     }
 
     @Test
     public void save() {
         String UUID_4 = "uuid4";
-        storage.save(new Resume("uuid4"));
-        assertEquals(UUID_4, storage.get(UUID_4).getUuid());
+        Resume resume4 = new Resume("uuid4");
+        storage.save(resume4);
+        assertEquals(resume4, storage.get(UUID_4));
+    }
+
+    @Test(expected = ExistStorageException.class)
+    public void saveExist() {
+        storage.save(resume3);
     }
 
     @Test(expected = NotExistStorageException.class)
     public void delete() {
         storage.delete(UUID_1);
+        assertEquals(2, storage.size());
         assertEquals(null, storage.get(UUID_1).getUuid());
+    }
+
+    @Test (expected = NotExistStorageException.class)
+    public void deleteNotExist() {
+        String UUID4 = "uuid4";
+        storage.delete(UUID4);
     }
 
     @Test
     public void getAll() {
-        Resume[] resume = new Resume[]{new Resume(UUID_1), new Resume(UUID_2), new Resume(UUID_3)};
+        Resume[] resume = new Resume[]{resume1, resume2, resume3};
         assertArrayEquals(resume, storage.getAll());
+        assertEquals(3, storage.size());
     }
 
     @Test
     public void get() {
-        assertEquals(UUID_1, storage.get(UUID_1).getUuid());
+        assertEquals(new Resume(UUID_1), storage.get(UUID_1));
     }
 
     @Test(expected = NotExistStorageException.class)
     public void getNotExist() {
-        storage.get("dummy");
+        storage.get(DUMMY);
     }
 
     @Test(expected = StorageException.class)
-    public void storageExceptionTest() {
+    public void saveOverflow() {
+        storage.clear();
         try {
-            for (int i = 3; i < storage.size(); i++) {
+            for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
                 storage.save(new Resume("uuid" + i));
             }
-        } catch (Exception e) {
+        } catch (StorageException e) {
             fail("ERROR CAUGHT, PLEASE CHANGE THE TEST CASE");
         }
-        storage.save(new Resume("uuid" + storage.size()));
+        storage.save(new Resume("uuid" + AbstractArrayStorage.STORAGE_LIMIT));
     }
 }
