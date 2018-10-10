@@ -13,13 +13,14 @@ public class AbstractArrayStorageTest extends Assert {
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
-    private Resume resume1 = new Resume(UUID_1);
-    private Resume resume2 = new Resume(UUID_2);
-    private Resume resume3 = new Resume(UUID_3);
-
+    private static final String UUID_4 = "uuid4";
+    private static final Resume resume1 = new Resume(UUID_1);
+    private static final Resume resume2 = new Resume(UUID_2);
+    private static final Resume resume3 = new Resume(UUID_3);
+    private static final Resume resume4 = new Resume(UUID_4);
     private static final String DUMMY = "dummy";
 
-    AbstractArrayStorageTest(Storage storage) {
+    protected AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
     }
 
@@ -44,9 +45,10 @@ public class AbstractArrayStorageTest extends Assert {
 
     @Test
     public void update() {
-        Resume updateResume = resume1;
+        Resume updateResume = new Resume("uuid5");
+        storage.save(updateResume);
         storage.update(updateResume);
-        assertEquals(updateResume, storage.get(UUID_1));
+        assertSame(updateResume, storage.get("uuid5"));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -56,10 +58,9 @@ public class AbstractArrayStorageTest extends Assert {
 
     @Test
     public void save() {
-        String UUID_4 = "uuid4";
-        Resume resume4 = new Resume("uuid4");
-        storage.save(resume4);
-        assertEquals(resume4, storage.get(UUID_4));
+        storage.save(new Resume(DUMMY));
+        assertEquals(new Resume(DUMMY), storage.get(DUMMY));
+        assertEquals(4, storage.size());
     }
 
     @Test(expected = ExistStorageException.class)
@@ -71,13 +72,13 @@ public class AbstractArrayStorageTest extends Assert {
     public void delete() {
         storage.delete(UUID_1);
         assertEquals(2, storage.size());
-        assertEquals(null, storage.get(UUID_1).getUuid());
+        storage.get(UUID_1);
     }
 
-    @Test (expected = NotExistStorageException.class)
+    @Test(expected = NotExistStorageException.class)
     public void deleteNotExist() {
-        String UUID4 = "uuid4";
-        storage.delete(UUID4);
+        String UUID5 = "uuid5";
+        storage.delete(UUID5);
     }
 
     @Test
@@ -89,7 +90,7 @@ public class AbstractArrayStorageTest extends Assert {
 
     @Test
     public void get() {
-        assertEquals(new Resume(UUID_1), storage.get(UUID_1));
+        assertEquals(resume1, storage.get(UUID_1));
     }
 
     @Test(expected = NotExistStorageException.class)
