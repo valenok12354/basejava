@@ -46,7 +46,7 @@ public class AbstractArrayStorageTest extends Assert {
     public void update() {
         Resume updateResume = new Resume(UUID_1);
         storage.update(updateResume);
-        assertSame(updateResume, storage.get("uuid1"));
+        assertSame(updateResume, storage.get(UUID_1));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -94,8 +94,9 @@ public class AbstractArrayStorageTest extends Assert {
     @Test
     public void getAll() {
         Resume[] resume = new Resume[]{resume1, resume2, resume3};
-        assertArrayEquals(resume, storage.getAll());
-        assertEquals(3, storage.getAll().length);
+        Resume[] all = storage.getAll();
+        assertArrayEquals(resume, all);
+        assertEquals(3, all.length);
     }
 
     @Test
