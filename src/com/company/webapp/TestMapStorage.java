@@ -1,12 +1,13 @@
-package com.company.webapp.storage;
+package com.company.webapp;
 
 import com.company.webapp.model.Resume;
+import com.company.webapp.storage.MapStorage;
+import com.company.webapp.storage.Storage;
 
-public class TestListStorage {
-    static Storage storage = new ListStorage();
+public class TestMapStorage {
+    private static Storage storage = new MapStorage();
 
     public static void main(String[] args) {
-
         Resume r1 = new Resume("uuid1");
         Resume r2 = new Resume("uuid2");
         Resume r3 = new Resume("uuid3");
@@ -15,9 +16,8 @@ public class TestListStorage {
         storage.save(r2);
         storage.save(r3);
 
-        storage.update(r2);
+        storage.update(r1);
         System.out.println("Update resume: " + storage.get(r1.getUuid()));
-
         System.out.println("Get r1: " + storage.get(r1.getUuid()));
         System.out.println("Size: " + storage.size());
 
@@ -28,6 +28,7 @@ public class TestListStorage {
         printAll();
 
         System.out.println("Size: " + storage.size());
+
     }
 
     private static void printAll() {
@@ -36,5 +37,4 @@ public class TestListStorage {
             System.out.println(r);
         }
     }
-
 }

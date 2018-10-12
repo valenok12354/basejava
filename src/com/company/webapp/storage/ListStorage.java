@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
-    protected Resume resume = new Resume();
     protected List<Resume> storage = new ArrayList<>();
     protected int size = 0;
 
@@ -55,7 +54,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public int getIndex(String uuid) {
+    protected int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage.get(i).getUuid().equals(uuid)) {
                 return i;
