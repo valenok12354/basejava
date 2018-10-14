@@ -23,5 +23,25 @@ public class ArrayStorage extends AbstractArrayStorage {
         }
         return -1;
     }
+
+    @Override
+    protected void deleteDiffrentCollections(String uuid) {
+
+    }
+
+    @Override
+    protected void saveDifferentCollections(Resume r) {
+
+    }
+
+    @Override
+    protected Resume getDifferentTypes(String uuid) {
+        return null;
+    }
+
+    @Override
+    public void getAllTypes() {
+
+    }
 }
 
