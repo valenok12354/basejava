@@ -1,5 +1,7 @@
 package com.company.webapp.storage;
 
+import com.company.webapp.exception.ExistStorageException;
+import com.company.webapp.exception.NotExistStorageException;
 import com.company.webapp.model.Resume;
 
 import java.util.*;
@@ -8,41 +10,50 @@ public class MapStorage extends AbstractStorage {
     private Map<String, Resume> mapStorage = new HashMap<>();
 
     @Override
-    protected int getIndex(String uuid) {
-        return 0;
-    }
-
-    @Override
-    public void clearDifferentTypes() {
+    public void clear() {
         mapStorage.clear();
     }
 
     @Override
-    public void deleteDiffrentCollections(String uuid) {
+    public void delete(String uuid) {
         mapStorage.remove(uuid);
     }
 
     @Override
-    public void saveDifferentCollections(Resume resume) {
-        mapStorage.put(resume.getUuid(), resume);
+    public void save(Resume resume) {
+        String index = resume.getUuid();
+        if (index == null) {
+            throw new ExistStorageException(index);
+        } else mapStorage.put(index, resume);
     }
 
     @Override
-    protected Resume getDifferentTypes(String uuid) {
-        return mapStorage.get(uuid);
-    }
-
-    @Override
-    public void getAllTypes() {
-        Set<Resume> treeSet = new TreeSet<>();
-        for (Map.Entry<String, Resume> entry : mapStorage.entrySet()) {
-            treeSet.add(entry.getValue());
-            storage = treeSet.toArray(new Resume[treeSet.size()]);
+    public Resume get(String uuid) {
+        if (uuid == null) {
+            throw new NotExistStorageException(uuid);
+        } else {
+            return mapStorage.get(uuid);
         }
     }
 
     @Override
     public void update(Resume resume) {
-        saveDifferentCollections(resume);
+        if (resume.getUuid() != null) {
+            mapStorage.put(resume.getUuid(), resume);
+        } else throw new NotExistStorageException(resume.getUuid());
+    }
+
+    @Override
+    public Resume[] getAll() {
+        Set<Resume> treeSet = new TreeSet<>();
+        for (Map.Entry<String, Resume> entry : mapStorage.entrySet()) {
+            treeSet.add(entry.getValue());
+        }
+        return treeSet.toArray(new Resume[treeSet.size()]);
+    }
+
+    @Override
+    public int size() {
+        return mapStorage.size();
     }
 }

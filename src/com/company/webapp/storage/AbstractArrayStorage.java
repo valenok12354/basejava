@@ -8,6 +8,10 @@ import com.company.webapp.model.Resume;
 import java.util.Arrays;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
+    protected int size = 0;
+    protected static final int STORAGE_LIMIT = 10_000;
+    protected Resume[] storage = new Resume[STORAGE_LIMIT];
+
     protected abstract void inputElement(Resume resume, int index);
 
     protected abstract void deletedElement(int index);
@@ -15,12 +19,13 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected abstract int getIndex(String uuid);
 
     @Override
-    public void clearDifferentTypes() {
+    public void clear() {
         Arrays.fill(storage, 0, size, null);
+        size = 0;
     }
 
     @Override
-    protected Resume getDifferentTypes(String uuid) {
+    public Resume get(String uuid) {
         int index = getIndex(uuid);
         if (index < 0) {
             throw new NotExistStorageException(uuid);
@@ -36,6 +41,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         } else {
             throw new NotExistStorageException(resume.getUuid());
         }
+    }
+
+    @Override
+    public Resume[] getAll() {
+        return Arrays.copyOfRange(storage, 0, size);
     }
 
     @Override
@@ -61,6 +71,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
             storage[size - 1] = null;
             size--;
         }
+    }
+
+    @Override
+    public int size() {
+        return size;
     }
 
 }

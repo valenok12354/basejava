@@ -26,24 +26,4 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         Resume searchKey = new Resume(uuid);
         return Arrays.binarySearch(storage, 0, size, searchKey);
     }
-
-    @Override
-    protected void deleteDiffrentCollections(String uuid) {
-
-    }
-
-    @Override
-    protected void saveDifferentCollections(Resume r) {
-
-    }
-
-    @Override
-    protected Resume getDifferentTypes(String uuid) {
-        return null;
-    }
-
-    @Override
-    public void getAllTypes() {
-
-    }
 }
