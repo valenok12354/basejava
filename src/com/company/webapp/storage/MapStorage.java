@@ -1,13 +1,20 @@
 package com.company.webapp.storage;
 
 import com.company.webapp.exception.ExistStorageException;
-import com.company.webapp.exception.NotExistStorageException;
 import com.company.webapp.model.Resume;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class MapStorage extends AbstractStorage {
     private Map<String, Resume> mapStorage = new HashMap<>();
+
+    @Override
+    protected String getIndex(String uuid) {
+        return uuid;
+    }
 
     @Override
     public void clear() {
@@ -21,26 +28,28 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     public void save(Resume resume) {
-        String index = resume.getUuid();
-        if (index == null) {
-            throw new ExistStorageException(index);
-        } else mapStorage.put(index, resume);
+        String index = getIndex(resume.getUuid());
+        for (Map.Entry<String, Resume> entry : mapStorage.entrySet()) {
+            if (entry.getValue().equals(resume)) {
+                throw new ExistStorageException(resume.getUuid());
+            }
+        }
+        mapStorage.put(index, resume);
     }
 
     @Override
     public Resume get(String uuid) {
-        if (uuid == null) {
-            throw new NotExistStorageException(uuid);
-        } else {
-            return mapStorage.get(uuid);
-        }
+        String index = getIndex(uuid);
+        NotNullCheck(uuid);
+        return mapStorage.get(index);
+
     }
 
     @Override
     public void update(Resume resume) {
-        if (resume.getUuid() != null) {
-            mapStorage.put(resume.getUuid(), resume);
-        } else throw new NotExistStorageException(resume.getUuid());
+        String index = getIndex(resume.getUuid());
+        NotNullCheck(resume.getUuid());
+        mapStorage.put(index, resume);
     }
 
     @Override

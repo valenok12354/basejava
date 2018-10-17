@@ -1,7 +1,6 @@
 package com.company.webapp.storage;
 
 import com.company.webapp.exception.ExistStorageException;
-import com.company.webapp.exception.NotExistStorageException;
 import com.company.webapp.exception.StorageException;
 import com.company.webapp.model.Resume;
 
@@ -16,7 +15,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     protected abstract void deletedElement(int index);
 
-    protected abstract int getIndex(String uuid);
+    @Override
+    protected Integer getIndex(String uuid) {
+        return 0;
+    }
 
     @Override
     public void clear() {
@@ -26,21 +28,16 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        }
+        Integer index = getIndex(uuid);
+        NotNullCheck(uuid);
         return storage[index];
     }
 
     @Override
     public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index >= 0) {
-            storage[index] = resume;
-        } else {
-            throw new NotExistStorageException(resume.getUuid());
-        }
+        Integer index = getIndex(resume.getUuid());
+        NotNullCheck(resume.getUuid());
+        storage[index] = resume;
     }
 
     @Override
@@ -50,7 +47,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     public void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
+        Integer index = getIndex(resume.getUuid());
         if (index >= 0) {
             throw new ExistStorageException(resume.getUuid());
         } else if (size == STORAGE_LIMIT) {
@@ -63,14 +60,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        } else {
-            deletedElement(index);
-            storage[size - 1] = null;
-            size--;
-        }
+        Integer index = getIndex(uuid);
+        NotNullCheck(uuid);
+        deletedElement(index);
+        storage[size - 1] = null;
+        size--;
     }
 
     @Override

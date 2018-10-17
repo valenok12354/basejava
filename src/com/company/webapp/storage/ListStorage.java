@@ -1,7 +1,6 @@
 package com.company.webapp.storage;
 
 import com.company.webapp.exception.ExistStorageException;
-import com.company.webapp.exception.NotExistStorageException;
 import com.company.webapp.model.Resume;
 
 import java.util.ArrayList;
@@ -10,8 +9,8 @@ import java.util.List;
 public class ListStorage extends AbstractStorage {
     private List<Resume> listStorage = new ArrayList<>();
 
-
-    private int getIndex(String uuid) {
+    @Override
+    protected Integer getIndex(String uuid) {
         for (int i = 0; i < listStorage.size(); i++) {
             if (listStorage.get(i).getUuid().equals(uuid)) {
                 return i;
@@ -27,20 +26,16 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        }
+        Integer index = getIndex(uuid);
+        NotNullCheck(uuid);
         return listStorage.get(index);
     }
 
     @Override
     public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index >= 0) {
-            listStorage.set(index, resume);
-        } else throw new NotExistStorageException(resume.getUuid());
-
+        Integer index = getIndex(resume.getUuid());
+        NotNullCheck(resume.getUuid());
+        listStorage.set(index, resume);
     }
 
     @Override
@@ -50,20 +45,18 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
+        Integer index = getIndex(resume.getUuid());
         if (index >= 0) {
             throw new ExistStorageException(resume.getUuid());
-        } else listStorage.add(resume);
+        } else
+            listStorage.add(resume);
     }
 
     @Override
     public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        } else {
-            listStorage.remove(index);
-        }
+        Integer index = getIndex(uuid);
+        NotNullCheck(uuid);
+        listStorage.remove((int) index);
     }
 
     @Override

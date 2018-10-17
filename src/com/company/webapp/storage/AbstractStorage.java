@@ -1,8 +1,17 @@
 package com.company.webapp.storage;
 
+import com.company.webapp.exception.NotExistStorageException;
 import com.company.webapp.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
+
+    protected abstract Object getIndex(String uuid);
+
+    void NotNullCheck(String uuid) {
+        if (getIndex(uuid) == null) {
+            throw new NotExistStorageException(uuid);
+        }
+    }
 
     @Override
     public void clear() {
@@ -14,11 +23,6 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public void save(Resume r) {
-    }
-
-    @Override
-    public Resume get(String uuid) {
-        return null;
     }
 
     @Override
