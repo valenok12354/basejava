@@ -17,7 +17,7 @@ public class TestListStorage {
         storage.save(r2);
         storage.save(r3);
 
-        storage.update(r2);
+        storage.update(r1);
         System.out.println("Update resume: " + storage.get(r1.getUuid()));
 
         System.out.println("Get r1: " + storage.get(r1.getUuid()));

@@ -16,8 +16,30 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected abstract void deletedElement(int index);
 
     @Override
-    protected Integer getIndex(String uuid) {
+    protected Integer getSearchKey(String uuid) {
         return 0;
+    }
+
+    @Override
+    protected Resume doGet(Object index) {
+        return storage[(int) index];
+    }
+
+    @Override
+    protected void doUpdate(Object index, Resume resume) {
+        storage[(int) index] = resume;
+    }
+
+    @Override
+    protected void doDelte(Object index) {
+        deletedElement((Integer) index);
+        storage[size - 1] = null;
+        size--;
+    }
+
+    @Override
+    protected boolean isExist(Object searchKey) {
+        return (Integer) searchKey >= 0;
     }
 
     @Override
@@ -27,49 +49,24 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume get(String uuid) {
-        Integer index = getIndex(uuid);
-        NotNullCheck(uuid);
-        return storage[index];
-    }
-
-    @Override
-    public void update(Resume resume) {
-        Integer index = getIndex(resume.getUuid());
-        NotNullCheck(resume.getUuid());
-        storage[index] = resume;
-    }
-
-    @Override
     public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
     @Override
-    public void save(Resume resume) {
-        Integer index = getIndex(resume.getUuid());
-        if (index >= 0) {
+    protected void doSave(Object index, Resume resume) {
+        if ((int) index >= 0) {
             throw new ExistStorageException(resume.getUuid());
         } else if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
         } else {
-            inputElement(resume, index);
+            inputElement(resume, (int) index);
             size++;
         }
-    }
-
-    @Override
-    public void delete(String uuid) {
-        Integer index = getIndex(uuid);
-        NotNullCheck(uuid);
-        deletedElement(index);
-        storage[size - 1] = null;
-        size--;
     }
 
     @Override
     public int size() {
         return size;
     }
-
 }
