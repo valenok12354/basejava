@@ -14,7 +14,7 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract void doSave(Object index, Resume resume);
 
-    protected abstract void doDelte(Object index);
+    protected abstract void doDelete(Object index);
 
     protected abstract boolean isExist(Object searchKey);
 
@@ -53,11 +53,6 @@ public abstract class AbstractStorage implements Storage {
         if (!isExist(searchKey)) {
             throw new NotExistStorageException(uuid);
         }
-        doDelte(searchKey);
-    }
-
-    @Override
-    public int size() {
-        return 0;
+        doDelete(searchKey);
     }
 }

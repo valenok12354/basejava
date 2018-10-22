@@ -1,6 +1,5 @@
 package com.company.webapp.storage;
 
-import com.company.webapp.exception.ExistStorageException;
 import com.company.webapp.exception.StorageException;
 import com.company.webapp.model.Resume;
 
@@ -16,11 +15,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected abstract void deletedElement(int index);
 
     @Override
-    protected Integer getSearchKey(String uuid) {
-        return 0;
-    }
-
-    @Override
     protected Resume doGet(Object index) {
         return storage[(int) index];
     }
@@ -31,7 +25,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doDelte(Object index) {
+    protected void doDelete(Object index) {
         deletedElement((Integer) index);
         storage[size - 1] = null;
         size--;
@@ -55,9 +49,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected void doSave(Object index, Resume resume) {
-        if ((int) index >= 0) {
-            throw new ExistStorageException(resume.getUuid());
-        } else if (size == STORAGE_LIMIT) {
+        if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
         } else {
             inputElement(resume, (int) index);

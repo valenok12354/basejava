@@ -2,10 +2,7 @@ package com.company.webapp.storage;
 
 import com.company.webapp.model.Resume;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class MapStorage extends AbstractStorage {
     private Map<String, Resume> mapStorage = new HashMap<>();
@@ -32,7 +29,7 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doDelte(Object index) {
+    protected void doDelete(Object index) {
         mapStorage.remove((String) index);
     }
 
@@ -48,11 +45,9 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     public Resume[] getAll() {
-        Set<Resume> treeSet = new TreeSet<>();
-        for (Map.Entry<String, Resume> entry : mapStorage.entrySet()) {
-            treeSet.add(entry.getValue());
-        }
-        return treeSet.toArray(new Resume[treeSet.size()]);
+        Resume[] resumes = mapStorage.values().toArray(new Resume[mapStorage.size()]);
+        Arrays.sort(resumes);
+        return resumes;
     }
 
     @Override
