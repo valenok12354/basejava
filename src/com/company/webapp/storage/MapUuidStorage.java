@@ -4,12 +4,11 @@ import com.company.webapp.model.Resume;
 
 import java.util.*;
 
-public class MapStorage extends AbstractStorage {
+public class MapUuidStorage extends AbstractStorage {
     private Map<String, Resume> mapStorage = new HashMap<>();
 
     @Override
     protected String getSearchKey(String uuid) {
-
         return uuid;
     }
 
@@ -44,9 +43,9 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        Resume[] resumes = mapStorage.values().toArray(new Resume[mapStorage.size()]);
-        Arrays.sort(resumes);
+    public List<Resume> getAllSorted() {
+        List<Resume> resumes = new ArrayList<>(mapStorage.values());
+        resumes.sort(Comparator.comparing(Resume::getUuid));
         return resumes;
     }
 

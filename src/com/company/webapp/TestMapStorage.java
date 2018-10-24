@@ -1,16 +1,16 @@
 package com.company.webapp;
 
 import com.company.webapp.model.Resume;
-import com.company.webapp.storage.MapStorage;
+import com.company.webapp.storage.MapFullNameStorage;
 import com.company.webapp.storage.Storage;
 
 public class TestMapStorage {
-    private static Storage storage = new MapStorage();
+    private static Storage storage = new MapFullNameStorage();
 
     public static void main(String[] args) {
-        Resume r1 = new Resume("uuid1");
-        Resume r2 = new Resume("uuid2");
-        Resume r3 = new Resume("uuid3");
+        Resume r1 = new Resume("uuid1","");
+        Resume r2 = new Resume("uuid2","");
+        Resume r3 = new Resume("uuid3","");
 
         storage.save(r1);
         storage.save(r2);
@@ -33,7 +33,7 @@ public class TestMapStorage {
 
     private static void printAll() {
         System.out.println("\nGet All");
-        for (Resume r : storage.getAll()) {
+        for (Resume r : storage.getAllSorted()) {
             System.out.println(r);
         }
     }
