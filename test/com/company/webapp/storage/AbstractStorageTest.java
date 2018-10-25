@@ -16,10 +16,10 @@ public class AbstractStorageTest extends Assert {
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
-    private static final Resume resume1 = new Resume(UUID_1, "JackDaniels");
-    private static final Resume resume2 = new Resume(UUID_2, "CaptainMorgan");
-    private static final Resume resume3 = new Resume(UUID_3, "PanGuss");
-    private static final Resume resume4 = new Resume(UUID_4, "GrigoryRasputin");
+    private static final Resume resume1 = new Resume(UUID_1, "");
+    private static final Resume resume2 = new Resume(UUID_2, "");
+    private static final Resume resume3 = new Resume(UUID_3, "");
+    private static final Resume resume4 = new Resume(UUID_4, "");
 
     AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -46,7 +46,7 @@ public class AbstractStorageTest extends Assert {
 
     @Test
     public void update() {
-        Resume updateResume = new Resume(UUID_1, "JackDaniels");
+        Resume updateResume = new Resume(UUID_1, "");
         storage.update(updateResume);
         assertSame(updateResume, storage.get(UUID_1));
     }

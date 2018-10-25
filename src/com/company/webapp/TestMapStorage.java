@@ -1,11 +1,11 @@
 package com.company.webapp;
 
 import com.company.webapp.model.Resume;
-import com.company.webapp.storage.MapFullNameStorage;
+import com.company.webapp.storage.MapUuidStorage;
 import com.company.webapp.storage.Storage;
 
 public class TestMapStorage {
-    private static Storage storage = new MapFullNameStorage();
+    private static Storage storage = new MapUuidStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume("uuid1", "");

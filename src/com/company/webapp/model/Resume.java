@@ -2,9 +2,14 @@ package com.company.webapp.model;
 
 import java.util.Objects;
 
-public class Resume implements Comparable<Resume> {
+public class Resume {
     private final String uuid;
     private final String fullName;
+
+    public Resume(String fullName) {
+        this.uuid = "";
+        this.fullName = fullName;
+    }
 
     public Resume(String uuid, String fullName) {
         this.uuid = uuid;
@@ -35,12 +40,5 @@ public class Resume implements Comparable<Resume> {
     @Override
     public String toString() {
         return uuid;
-    }
-
-    @Override
-    public int compareTo(Resume o) {
-        if (!fullName.equals(o.getFullName())) {
-            return fullName.compareTo(o.getFullName());
-        } else return uuid.compareTo(o.getUuid());
     }
 }
