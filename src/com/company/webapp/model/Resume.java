@@ -7,8 +7,7 @@ public class Resume {
     private final String fullName;
 
     public Resume(String fullName) {
-        this.uuid = "";
-        this.fullName = fullName;
+        this("", fullName);
     }
 
     public Resume(String uuid, String fullName) {
