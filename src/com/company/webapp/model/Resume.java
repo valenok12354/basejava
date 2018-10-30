@@ -1,13 +1,16 @@
 package com.company.webapp.model;
 
-import java.util.Objects;
+import java.util.*;
 
 public class Resume {
     private final String uuid;
     private final String fullName;
 
+    private Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+    private Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
+
     public Resume(String fullName) {
-        this("", fullName);
+        this(UUID.randomUUID().toString(), fullName);
     }
 
     public Resume(String uuid, String fullName) {
@@ -21,6 +24,14 @@ public class Resume {
 
     public String getFullName() {
         return fullName;
+    }
+
+    public String getContact(ContactType type) {
+        return contacts.get(type);
+    }
+
+    public Section getSection(SectionType type) {
+        return sections.get(type);
     }
 
     @Override
@@ -38,6 +49,11 @@ public class Resume {
 
     @Override
     public String toString() {
-        return uuid;
+        return "Resume{" +
+                "uuid='" + uuid + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", contacts=" + contacts +
+                ", sections=" + sections +
+                '}';
     }
 }
