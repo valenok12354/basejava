@@ -4,6 +4,8 @@ import com.company.webapp.exception.StorageException;
 import com.company.webapp.model.Resume;
 import org.junit.Test;
 
+import static junit.framework.TestCase.fail;
+
 public class AbstractArrayStorageTest extends AbstractStorageTest {
 
     AbstractArrayStorageTest(Storage storage) {
@@ -12,6 +14,8 @@ public class AbstractArrayStorageTest extends AbstractStorageTest {
 
     @Test(expected = StorageException.class)
     public void saveOverflow() {
+        String uuidOverflow = "uuid" + AbstractArrayStorage.STORAGE_LIMIT;
+        String fullNameOverflow = "fullName" + AbstractArrayStorage.STORAGE_LIMIT;
         storage.clear();
         try {
             for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
@@ -20,6 +24,6 @@ public class AbstractArrayStorageTest extends AbstractStorageTest {
         } catch (StorageException e) {
             fail("ERROR CAUGHT, PLEASE CHANGE THE TEST CASE");
         }
-        storage.save(new Resume("uuid" + AbstractArrayStorage.STORAGE_LIMIT, "fullName" + AbstractArrayStorage.STORAGE_LIMIT));
+        storage.save(new Resume(uuidOverflow, fullNameOverflow));
     }
 }

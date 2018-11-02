@@ -5,16 +5,15 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-
         ArrayStorageTest.class,
-        MapUuidStorageTest.class,
-        MapResumeStorageTest.class,
+        SortedArrayStorageTest.class,
         ListStorageTest.class,
-        SortedArrayStorageTest.class
+        MapUuidStorageTest.class,
+        MapResumeStorageTest.class
 
 })
 
-public class SuiteTestClass {
+public class SuiteTest {
 }
 
 

@@ -19,23 +19,23 @@ public class ListStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    protected Resume doGet(Integer index) {
-        return listStorage.get(index);
+    protected Resume doGet(Integer searchKey) {
+        return listStorage.get(searchKey);
     }
 
     @Override
-    protected void doUpdate(Integer index, Resume resume) {
-        listStorage.set(index, resume);
+    protected void doUpdate(Integer searchKey, Resume resume) {
+        listStorage.set(searchKey, resume);
     }
 
     @Override
-    protected void doSave(Integer index, Resume resume) {
+    protected void doSave(Integer searchKey, Resume resume) {
         listStorage.add(resume);
     }
 
     @Override
-    protected void doDelete(Integer index) {
-        listStorage.remove(index.intValue());
+    protected void doDelete(Integer searchKey) {
+        listStorage.remove(searchKey.intValue());
     }
 
     @Override

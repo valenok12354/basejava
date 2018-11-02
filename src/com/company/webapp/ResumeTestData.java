@@ -1,33 +1,33 @@
 package com.company.webapp;
 
-import com.company.webapp.model.Link1;
-import com.company.webapp.model.Resume;
-import com.company.webapp.model.SectionType;
+import com.company.webapp.model.*;
 
 import java.util.*;
 
 public class ResumeTestData {
     public static void main(String[] args) {
         Resume resume = new Resume("1", "Barack Obama");
-        List<String> items = new ArrayList<>();
+        List<String> contactDescription = new ArrayList<>(Arrays.asList("1245", "54321", "valenok12345"));
+        List<String> sectionDescription = new ArrayList<>(Arrays.asList("Ведущий стажировок", "Enterprise",  "технологиям"));
 
-        items.add("\nВедущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
-        items.add("\nАналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и .");
-        items.add("\nС 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven. Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)\". Организация онлайн стажировок и ведение проектов. Более 1000 выпускников.\n" +
-                "Реализация двухфакторной аутентификации для онлайн платформы управления проектами Wrike. Интеграция с Twilio, DuoSecurity, Google Authenticator, Jira, Zendesk.\n");
-        items.add("\nJEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2\n" +
-                "Version control: Subversion, Git, Mercury, ClearCase, Perforce\n" +
-                "DB: PostgreSQL(наследование, pgplsql, PL/Python), Redis (Jedis), H2, Oracle,");
+        ListSection listSection = new ListSection(sectionDescription);
 
-        Map<String, String> map = new HashMap<>();
-        Link1 link1 = new Link1("ya.ru", "Yandex");
+        Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+        Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
 
-
-        for (SectionType s : SectionType.values()) {
-            map.put(s.getTitle(), items.get(s.ordinal()));
+        for (ContactType testContact : ContactType.values()) {
+            contacts.put(testContact, contactDescription.get(testContact.ordinal()));
         }
-        for (Map.Entry<String, String> pair : map.entrySet()) {
-            System.out.println(pair);
+        resume.setContacts(contacts);
+
+        for (SectionType testSection : SectionType.values()) {
+            sections.put(testSection, listSection.getItems());
         }
+        //sections.put(SectionType.PERSONAL, (Section) listSection.getItems());
+
+        resume.setSections(sections);
+
+        System.out.println(resume);
+
     }
 }

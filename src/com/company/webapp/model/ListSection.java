@@ -28,4 +28,9 @@ public class ListSection extends Section {
 
         return Objects.hash(items);
     }
+
+    @Override
+    public String toString() {
+        return "" + items;
+    }
 }

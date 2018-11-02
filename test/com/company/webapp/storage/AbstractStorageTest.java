@@ -3,23 +3,26 @@ package com.company.webapp.storage;
 import com.company.webapp.exception.ExistStorageException;
 import com.company.webapp.exception.NotExistStorageException;
 import com.company.webapp.model.Resume;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class AbstractStorageTest extends Assert {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+
+public class AbstractStorageTest {
     Storage storage;
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
-    private static final Resume resume1 = new Resume(UUID_1, "");
-    private static final Resume resume2 = new Resume(UUID_2, "");
-    private static final Resume resume3 = new Resume(UUID_3, "");
-    private static final Resume resume4 = new Resume(UUID_4, "");
+    private static final Resume resume1 = new Resume(UUID_1, "A");
+    private static final Resume resume2 = new Resume(UUID_2, "B");
+    private static final Resume resume3 = new Resume(UUID_3, "C");
+    private static final Resume resume4 = new Resume(UUID_4, "D");
 
     AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -35,7 +38,7 @@ public class AbstractStorageTest extends Assert {
 
     @Test
     public void size() {
-        Assert.assertEquals(3, storage.size());
+        assertEquals(3, storage.size());
     }
 
     @Test
@@ -46,14 +49,15 @@ public class AbstractStorageTest extends Assert {
 
     @Test
     public void update() {
-        Resume updateResume = new Resume(UUID_1, "");
+        Resume updateResume = new Resume(UUID_1, "E");
         storage.update(updateResume);
         assertSame(updateResume, storage.get(UUID_1));
     }
 
     @Test(expected = NotExistStorageException.class)
     public void updateNotExist() {
-        storage.update(resume4);
+        Resume updateResume = new Resume(UUID_4, "F");
+        storage.update(updateResume);
     }
 
     @Test
@@ -82,13 +86,10 @@ public class AbstractStorageTest extends Assert {
 
     @Test
     public void getAllSorted() {
-        List<Resume> resume = new ArrayList<>();
-        resume.add(resume1);
-        resume.add(resume2);
-        resume.add(resume3);
-        List<Resume> all = storage.getAllSorted();
-        assertEquals(resume, all);
-        assertEquals(3, all.size());
+        List<Resume> resumeExpected = new ArrayList<>(Arrays.asList(resume1, resume2, resume3));
+        List<Resume> resumeActual = storage.getAllSorted();
+        assertEquals(resumeExpected,resumeActual);
+        assertEquals(3, resumeActual.size());
     }
 
     @Test
