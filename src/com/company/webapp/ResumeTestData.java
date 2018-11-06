@@ -6,11 +6,11 @@ import java.util.*;
 
 public class ResumeTestData {
     public static void main(String[] args) {
-        Resume resume = new Resume("1", "Barack Obama");
-        List<String> contactDescription = new ArrayList<>(Arrays.asList("1245", "54321", "valenok12345"));
-        List<String> sectionDescription = new ArrayList<>(Arrays.asList("Ведущий стажировок", "Enterprise",  "технологиям"));
-
-        ListSection listSection = new ListSection(sectionDescription);
+        Resume resume = new Resume("1", "Freddy Cruger");
+        List<String> contactDescription = new ArrayList<>(Arrays.asList("12345", "54321", "Cruger12345"));
+        ListSection listSection1 = new ListSection(Arrays.asList("1Певец"));
+        ListSection listSection2 = new ListSection(Arrays.asList("2Жнец"));
+        ListSection listSection3 = new ListSection(Arrays.asList("1И на дуде игрец"));
 
         Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
         Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
@@ -20,13 +20,11 @@ public class ResumeTestData {
         }
         resume.setContacts(contacts);
 
-        for (SectionType testSection : SectionType.values()) {
-            sections.put(testSection, listSection.getItems());
-        }
-        //sections.put(SectionType.PERSONAL, (Section) listSection.getItems());
+        sections.put(SectionType.PERSONAL, listSection1);
+        sections.put(SectionType.OBJECTIVE, listSection2);
+        sections.put(SectionType.ACHIEVEMENT, listSection3);
 
         resume.setSections(sections);
-
         System.out.println(resume);
 
     }

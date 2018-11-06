@@ -57,11 +57,11 @@ public class Resume {
 
     @Override
     public String toString() {
-        return "Resume{" +
+        return "" +
                 "uuid='" + uuid + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", contacts=" + contacts +
-                ", sections=" + sections +
-                '}';
+                ", fullName=" + fullName + '\'' +
+                ", " + contacts +
+                ", " + sections +
+                ' ';
     }
 }
