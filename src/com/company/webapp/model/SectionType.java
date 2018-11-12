@@ -3,10 +3,10 @@ package com.company.webapp.model;
 public enum SectionType {
     OBJECTIVE("Позиция"),
     PERSONAL("Личные качества"),
-    ACHIEVEMENT("Достижения");
-//    QUALIFICATIONS("Квалификация"),
-//    EXPERIENCE("Опыт работы"),
-//    EDUCATION("Образование");
+    ACHIEVEMENT("Достижения"),
+    QUALIFICATIONS("Квалификация"),
+    EXPERIENCE("Опыт работы"),
+    EDUCATION("Образование");
 
     private String title;
 

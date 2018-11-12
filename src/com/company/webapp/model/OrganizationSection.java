@@ -28,4 +28,9 @@ public class OrganizationSection extends Section {
 
         return Objects.hash(organizations);
     }
+
+    @Override
+    public String toString() {
+        return "" + organizations;
+    }
 }

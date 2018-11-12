@@ -27,7 +27,7 @@ public class Organization {
 
     @Override
     public String toString() {
-        return "Organization{" +
+        return "" +
                 "homePage=" + homePage +
                 ", periods=" + periods +
                 ", startDate=" + startDate +
