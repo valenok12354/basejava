@@ -13,6 +13,11 @@ public class MapUuidStorage extends AbstractStorage<String> {
     }
 
     @Override
+    protected boolean isExist(String searchKey) {
+        return mapStorage.containsKey(searchKey);
+    }
+
+    @Override
     protected Resume doGet(String searchKey) {
         return mapStorage.get(searchKey);
     }
@@ -30,11 +35,6 @@ public class MapUuidStorage extends AbstractStorage<String> {
     @Override
     protected void doDelete(String searchKey) {
         mapStorage.remove(searchKey);
-    }
-
-    @Override
-    protected boolean isExist(String searchKey) {
-        return mapStorage.containsKey(searchKey);
     }
 
     @Override

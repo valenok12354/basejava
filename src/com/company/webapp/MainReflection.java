@@ -9,12 +9,12 @@ import java.lang.reflect.Method;
 public class MainReflection {
 
     public static void main(String[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        Resume r = new Resume("uuid2", "");
-        Field field = r.getClass().getDeclaredFields()[0];
+        Resume resume = new Resume("uuid2", "");
+        Field field = resume.getClass().getDeclaredFields()[0];
         field.setAccessible(true);
-        field.set(r, "new_uuid");
+        field.set(resume, "new_uuid");
 
-        Method stringMethod = r.getClass().getMethod("toString");
-        System.out.println(stringMethod.invoke(r));
+        Method stringMethod = resume.getClass().getMethod("toString");
+        System.out.println(stringMethod.invoke(resume));
     }
 }

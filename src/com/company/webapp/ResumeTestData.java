@@ -18,7 +18,7 @@ public class ResumeTestData {
         List<Organization> educationalList = new ArrayList<>();
 
         Organization firstOrganozaton = new Organization("ZTE", "www.zte.com", LocalDate.of(2013, 9, 1), LocalDate.now(), "Java ZTE", "this is description");
-        Organization secondOrganozaton = new Organization("Xiaomi", "www.xiaomi.com", LocalDate.of(2011, 9, 1), LocalDate.of(2013, 9, 1), "Java ZTE", "this is description");
+        Organization secondOrganozaton = new Organization("Xiaomi", "www.xiaomi.com", LocalDate.of(2011, 9, 1), LocalDate.of(2013, 9, 1), "Java Xiaomi", "this is description");
 
         experienceList.add(0, firstOrganozaton);
         experienceList.add(1, secondOrganozaton);
@@ -29,7 +29,7 @@ public class ResumeTestData {
         educationalList.add(0, firstEducational);
         educationalList.add(1, secondEducational);
 
-        Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
+        Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
         sections.put(SectionType.ACHIEVEMENT, listSectionAchievement);
         sections.put(SectionType.PERSONAL, listSectionPersonal);
         sections.put(SectionType.QUALIFICATIONS, listSectionQualification);

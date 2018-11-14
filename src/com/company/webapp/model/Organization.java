@@ -1,14 +1,11 @@
 package com.company.webapp.model;
 
 import java.time.LocalDate;
-import java.time.Period;
-import java.util.Collection;
 import java.util.Objects;
 
 public class Organization {
 
-    private final Link1 homePage;
-    Collection<Period> periods;
+    private final Link homePage;
     private final LocalDate startDate;
     private final LocalDate endDate;
     private final String title;
@@ -18,7 +15,7 @@ public class Organization {
         Objects.requireNonNull(startDate, "startDate shouldn't be null");
         Objects.requireNonNull(endDate, "endDate shouldn't be null");
         Objects.requireNonNull(title, "title shouldn't be null");
-        this.homePage = new Link1(name,url);
+        this.homePage = new Link(name,url);
         this.startDate = startDate;
         this.endDate = endDate;
         this.title = title;
@@ -29,7 +26,6 @@ public class Organization {
     public String toString() {
         return "" +
                 "homePage=" + homePage +
-                ", periods=" + periods +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", title='" + title + '\'' +
@@ -43,7 +39,6 @@ public class Organization {
         if (o == null || getClass() != o.getClass()) return false;
         Organization that = (Organization) o;
         return Objects.equals(homePage, that.homePage) &&
-                Objects.equals(periods, that.periods) &&
                 Objects.equals(startDate, that.startDate) &&
                 Objects.equals(endDate, that.endDate) &&
                 Objects.equals(title, that.title) &&
@@ -53,6 +48,6 @@ public class Organization {
     @Override
     public int hashCode() {
 
-        return Objects.hash(homePage, periods, startDate, endDate, title, description);
+        return Objects.hash(homePage, startDate, endDate, title, description);
     }
 }

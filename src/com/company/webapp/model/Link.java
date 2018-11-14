@@ -2,11 +2,11 @@ package com.company.webapp.model;
 
 import java.util.Objects;
 
-public class Link1 {
+public class Link {
     private final String url;
     private final String name;
 
-    public Link1(String url, String name) {
+    public Link(String url, String name) {
         Objects.requireNonNull(name, "name shouldn't be null");
         this.url = url;
         this.name = name;
@@ -24,7 +24,7 @@ public class Link1 {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Link1 link = (Link1) o;
+        Link link = (Link) o;
         return Objects.equals(url, link.url) &&
                 Objects.equals(name, link.name);
     }
