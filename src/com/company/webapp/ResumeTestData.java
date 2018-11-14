@@ -41,9 +41,9 @@ public class ResumeTestData {
         for (ContactType testContact : ContactType.values()) {
             contacts.put(testContact, contactDescription.get(testContact.ordinal()));
         }
+
         resume.setContacts(contacts);
         resume.setSections(sections);
-
         System.out.println(resume);
     }
 }
