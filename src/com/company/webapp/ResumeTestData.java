@@ -38,6 +38,7 @@ public class ResumeTestData {
         sections.put(SectionType.EDUCATION, new OrganizationSection(educationalList));
 
         Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+
         for (ContactType testContact : ContactType.values()) {
             contacts.put(testContact, contactDescription.get(testContact.ordinal()));
         }
