@@ -18,15 +18,15 @@ public abstract class AbstractStorage<SK> implements Storage {
 
     protected abstract Resume doGet(SK searchKey);
 
+    public abstract List<Resume> getList();
+
     protected abstract void doUpdate(SK searchKey, Resume resume);
 
     protected abstract void doSave(SK searchKey, Resume resume);
 
     protected abstract void doDelete(SK searchKey);
 
-    public abstract List<Resume> getList();
-
-    private SK notExistMethod(String uuid) {
+    private SK getsearchKeyNotExist(String uuid) {
         SK searchKey = getSearchKey(uuid);
         if (!isExist(searchKey)) {
             throw new NotExistStorageException(uuid);
@@ -34,7 +34,7 @@ public abstract class AbstractStorage<SK> implements Storage {
         return searchKey;
     }
 
-    private SK existMethod(String uuid) {
+    private SK getsearchKeyExist(String uuid) {
         SK searchKey = getSearchKey(uuid);
         if (isExist(searchKey)) {
             throw new ExistStorageException(uuid);
@@ -45,21 +45,21 @@ public abstract class AbstractStorage<SK> implements Storage {
     @Override
     public Resume get(String uuid) {
         //LOG.info("get " + uuid);
-        SK searchKey = notExistMethod(uuid);
+        SK searchKey = getsearchKeyNotExist(uuid);
         return doGet(searchKey);
     }
 
     @Override
     public void update(Resume resume) {
         //LOG.info("update " + resume);
-        SK searchKey = notExistMethod(resume.getUuid());
+        SK searchKey = getsearchKeyNotExist(resume.getUuid());
         doUpdate(searchKey, resume);
     }
 
     @Override
     public void save(Resume resume) {
         // LOG.info("save " + resume);
-        SK searchKey = existMethod(resume.getUuid());
+        SK searchKey = getsearchKeyExist(resume.getUuid());
         doSave(searchKey, resume);
     }
 
@@ -74,7 +74,7 @@ public abstract class AbstractStorage<SK> implements Storage {
     @Override
     public void delete(String uuid) {
         //LOG.info("delete " + uuid);
-        SK searchKey = notExistMethod(uuid);
+        SK searchKey = getsearchKeyNotExist(uuid);
         doDelete(searchKey);
     }
 }

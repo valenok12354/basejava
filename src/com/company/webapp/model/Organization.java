@@ -15,7 +15,7 @@ public class Organization {
         Objects.requireNonNull(startDate, "startDate shouldn't be null");
         Objects.requireNonNull(endDate, "endDate shouldn't be null");
         Objects.requireNonNull(title, "title shouldn't be null");
-        this.homePage = new Link(name,url);
+        this.homePage = new Link(name, url);
         this.startDate = startDate;
         this.endDate = endDate;
         this.title = title;
@@ -24,13 +24,12 @@ public class Organization {
 
     @Override
     public String toString() {
-        return "" +
-                "homePage=" + homePage +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        return " " +
+                homePage + " " +
+                startDate + " " +
+                endDate + " " +
+                title +   " " +
+                description ;
     }
 
     @Override

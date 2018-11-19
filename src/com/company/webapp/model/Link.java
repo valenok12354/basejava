@@ -37,9 +37,8 @@ public class Link {
 
     @Override
     public String toString() {
-        return "Link{" +
-                "url='" + url + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+        return "" +
+                " " + url +
+                " " + name;
     }
 }

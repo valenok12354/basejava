@@ -2,13 +2,12 @@ package com.company.webapp.model;
 
 public enum ContactType {
     PHONE("Тел."),
-    MOBILE("Мобильный"),
-    SKYPE("Skype");
-//    MAIL("Почта"),
-//    LINKEDIN("Профиль LinkedIn"),
-//    GITHUB("Профиль GitHub"),
-//    STACKOVERFLOW("Профиль Stackoverflow"),
-//    HOME_PAGE("Домашняя страница");
+    SKYPE("Skype"),
+    MAIL("Почта"),
+    LINKEDIN("Профиль LinkedIn"),
+    GITHUB("Профиль GitHub"),
+    STACKOVERFLOW("Профиль Stackoverflow"),
+    HOME_PAGE("Домашняя страница");
 
     private String title;
 
