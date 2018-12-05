@@ -26,7 +26,9 @@ public abstract class AbstractStorage<SK> implements Storage {
 
     protected abstract void doDelete(SK searchKey);
 
-    private SK getsearchKeyNotExist(String uuid) {
+    protected abstract List<Resume> doCopyAll();
+
+    private SK getSearchKeyNotExist(String uuid) {
         SK searchKey = getSearchKey(uuid);
         if (!isExist(searchKey)) {
             throw new NotExistStorageException(uuid);
@@ -34,7 +36,7 @@ public abstract class AbstractStorage<SK> implements Storage {
         return searchKey;
     }
 
-    private SK getsearchKeyExist(String uuid) {
+    private SK getSearchKeyExist(String uuid) {
         SK searchKey = getSearchKey(uuid);
         if (isExist(searchKey)) {
             throw new ExistStorageException(uuid);
@@ -45,21 +47,21 @@ public abstract class AbstractStorage<SK> implements Storage {
     @Override
     public Resume get(String uuid) {
         //LOG.info("get " + uuid);
-        SK searchKey = getsearchKeyNotExist(uuid);
+        SK searchKey = getSearchKeyNotExist(uuid);
         return doGet(searchKey);
     }
 
     @Override
     public void update(Resume resume) {
         //LOG.info("update " + resume);
-        SK searchKey = getsearchKeyNotExist(resume.getUuid());
+        SK searchKey = getSearchKeyNotExist(resume.getUuid());
         doUpdate(searchKey, resume);
     }
 
     @Override
     public void save(Resume resume) {
         // LOG.info("save " + resume);
-        SK searchKey = getsearchKeyExist(resume.getUuid());
+        SK searchKey = getSearchKeyExist(resume.getUuid());
         doSave(searchKey, resume);
     }
 
@@ -74,7 +76,7 @@ public abstract class AbstractStorage<SK> implements Storage {
     @Override
     public void delete(String uuid) {
         //LOG.info("delete " + uuid);
-        SK searchKey = getsearchKeyNotExist(uuid);
+        SK searchKey = getSearchKeyNotExist(uuid);
         doDelete(searchKey);
     }
 }
