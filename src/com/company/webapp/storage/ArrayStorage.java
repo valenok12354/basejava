@@ -2,6 +2,8 @@ package com.company.webapp.storage;
 
 import com.company.webapp.model.Resume;
 
+import java.util.List;
+
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
@@ -22,6 +24,11 @@ public class ArrayStorage extends AbstractArrayStorage {
             }
         }
         return -1;
+    }
+
+    @Override
+    protected List<Resume> doCopyAll() {
+        return null;
     }
 }
 

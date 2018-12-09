@@ -4,6 +4,7 @@ import com.company.webapp.model.Resume;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
 
@@ -28,5 +29,10 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     protected Integer getSearchKey(String uuid) {
         Resume searchKey = new Resume(uuid, "");
         return Arrays.binarySearch(storage, 0, size, searchKey, SORTED_COMPARATOR);
+    }
+
+    @Override
+    protected List<Resume> doCopyAll() {
+        return null;
     }
 }

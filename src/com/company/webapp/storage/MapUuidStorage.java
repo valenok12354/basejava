@@ -38,6 +38,11 @@ public class MapUuidStorage extends AbstractStorage<String> {
     }
 
     @Override
+    protected List<Resume> doCopyAll() {
+        return null;
+    }
+
+    @Override
     public void clear() {
         mapStorage.clear();
     }
