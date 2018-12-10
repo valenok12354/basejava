@@ -42,7 +42,6 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         return doRead(file);
     }
 
-
     @Override
     public List<Resume> getList() {
         List<Resume> list = new ArrayList<>();
