@@ -46,8 +46,10 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     public List<Resume> getList() {
         List<Resume> list = new ArrayList<>();
         File[] files = directory.listFiles();
-        for (int i = 0; i < directory.listFiles().length; i++) {
-            list.add(doGet(files[i]));
+        for (int i = 0; i < Objects.requireNonNull(directory.listFiles()).length; i++) {
+            if (files != null) {
+                list.add(doGet(files[i]));
+            }
         }
         return list;
     }
@@ -92,16 +94,4 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
             throw new NullPointerException();
         }
     }
-
-    @Override
-    protected List<Resume> doCopyAll() {
-        File[] files = directory.listFiles();
-        List<Resume> list = new ArrayList();
-
-        for (File file : files) {
-            list.add(doRead(file));
-        }
-        return list;
-    }
-
 }

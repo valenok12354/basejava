@@ -60,4 +60,8 @@ public class Resume {
                 ", " + sections +
                 ' ';
     }
+
+    public void addContact(ContactType type, String value) {
+        contacts.put(type,value);
+    }
 }

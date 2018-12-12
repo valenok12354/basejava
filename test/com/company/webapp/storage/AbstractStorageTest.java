@@ -1,7 +1,9 @@
 package com.company.webapp.storage;
 
+import com.company.webapp.ResumeTestData;
 import com.company.webapp.exception.ExistStorageException;
 import com.company.webapp.exception.NotExistStorageException;
+import com.company.webapp.model.ContactType;
 import com.company.webapp.model.Resume;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,15 +16,26 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 public class AbstractStorageTest {
-    Storage storage;
+    protected Storage storage;
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
+    private static final String UUID_5 = "uuid5";
+
     private static final Resume resume1 = new Resume(UUID_1, "A");
     private static final Resume resume2 = new Resume(UUID_2, "B");
     private static final Resume resume3 = new Resume(UUID_3, "C");
     private static final Resume resume4 = new Resume(UUID_4, "D");
+
+    private static final Resume resume5 = new Resume(UUID_5, "E");
+
+    static {
+
+        resume1.addContact(ContactType.MAIL, "mail1@ya.ru");
+        resume1.addContact(ContactType.GITHUB, "github");
+    }
+
 
     AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -88,7 +101,7 @@ public class AbstractStorageTest {
     public void getAllSorted() {
         List<Resume> resumeExpected = new ArrayList<>(Arrays.asList(resume1, resume2, resume3));
         List<Resume> resumeActual = storage.getAllSorted();
-        assertEquals(resumeExpected,resumeActual);
+        assertEquals(resumeExpected, resumeActual);
         assertEquals(3, resumeActual.size());
     }
 
@@ -100,5 +113,11 @@ public class AbstractStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void getNotExist() {
         storage.get(UUID_4);
+    }
+
+    @Test
+    public void resumeTestDataCount() {
+        ResumeTestData resumeTestData = new ResumeTestData();
+
     }
 }

@@ -1,6 +1,7 @@
 package com.company.webapp;
 
 import java.io.File;
+import java.util.Objects;
 
 public class MainFile {
     public static void main(String[] args) {
@@ -17,10 +18,9 @@ public class MainFile {
     }
 
     public static void print(File directory) {
-        for (File file : directory.listFiles()) {
+        for (File file : Objects.requireNonNull(directory.listFiles())) {
             if (file.isDirectory()) {
                 print(file);
-                continue;
             } else {
                 System.out.println(file);
             }

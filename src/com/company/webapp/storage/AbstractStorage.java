@@ -26,22 +26,8 @@ public abstract class AbstractStorage<SK> implements Storage {
 
     protected abstract void doDelete(SK searchKey);
 
-    protected abstract List<Resume> doCopyAll();
-
-    private SK getSearchKeyNotExist(String uuid) {
-        SK searchKey = getSearchKey(uuid);
-        if (!isExist(searchKey)) {
-            throw new NotExistStorageException(uuid);
-        }
-        return searchKey;
-    }
-
-    private SK getSearchKeyExist(String uuid) {
-        SK searchKey = getSearchKey(uuid);
-        if (isExist(searchKey)) {
-            throw new ExistStorageException(uuid);
-        }
-        return searchKey;
+    protected List<Resume> doCopyAll() {
+        return null;
     }
 
     @Override
@@ -78,5 +64,21 @@ public abstract class AbstractStorage<SK> implements Storage {
         //LOG.info("delete " + uuid);
         SK searchKey = getSearchKeyNotExist(uuid);
         doDelete(searchKey);
+    }
+
+    private SK getSearchKeyNotExist(String uuid) {
+        SK searchKey = getSearchKey(uuid);
+        if (!isExist(searchKey)) {
+            throw new NotExistStorageException(uuid);
+        }
+        return searchKey;
+    }
+
+    private SK getSearchKeyExist(String uuid) {
+        SK searchKey = getSearchKey(uuid);
+        if (isExist(searchKey)) {
+            throw new ExistStorageException(uuid);
+        }
+        return searchKey;
     }
 }

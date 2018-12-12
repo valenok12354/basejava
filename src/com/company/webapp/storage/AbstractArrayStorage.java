@@ -47,6 +47,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
         size--;
     }
 
+
     @Override
     public void clear() {
         Arrays.fill(storage, 0, size, null);

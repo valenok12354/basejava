@@ -37,10 +37,7 @@ public class MapUuidStorage extends AbstractStorage<String> {
         mapStorage.remove(searchKey);
     }
 
-    @Override
-    protected List<Resume> doCopyAll() {
-        return null;
-    }
+
 
     @Override
     public void clear() {
