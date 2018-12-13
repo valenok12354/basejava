@@ -26,9 +26,7 @@ public abstract class AbstractStorage<SK> implements Storage {
 
     protected abstract void doDelete(SK searchKey);
 
-    protected List<Resume> doCopyAll() {
-        return null;
-    }
+    protected abstract List<Resume> doCopyAll();
 
     @Override
     public Resume get(String uuid) {

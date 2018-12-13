@@ -15,6 +15,10 @@ public enum ContactType {
         this.title = title;
     }
 
+    public static ContactType getInstance() {
+        return PHONE;
+    }
+
     public String getTitle() {
         return title;
     }

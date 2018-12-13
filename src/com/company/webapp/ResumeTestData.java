@@ -79,4 +79,5 @@ public class ResumeTestData {
         System.out.println(resume.getFullName() + " " + contacts);
         System.out.println(sections.values());
     }
+
 }

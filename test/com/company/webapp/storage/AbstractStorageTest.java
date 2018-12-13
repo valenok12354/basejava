@@ -3,7 +3,6 @@ package com.company.webapp.storage;
 import com.company.webapp.ResumeTestData;
 import com.company.webapp.exception.ExistStorageException;
 import com.company.webapp.exception.NotExistStorageException;
-import com.company.webapp.model.ContactType;
 import com.company.webapp.model.Resume;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,18 +27,10 @@ public class AbstractStorageTest {
     private static final Resume resume3 = new Resume(UUID_3, "C");
     private static final Resume resume4 = new Resume(UUID_4, "D");
 
-    private static final Resume resume5 = new Resume(UUID_5, "E");
-
-    static {
-
-        resume1.addContact(ContactType.MAIL, "mail1@ya.ru");
-        resume1.addContact(ContactType.GITHUB, "github");
-    }
-
-
     AbstractStorageTest(Storage storage) {
         this.storage = storage;
     }
+
 
     @Before
     public void setUp() {

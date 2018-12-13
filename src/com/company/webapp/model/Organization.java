@@ -4,12 +4,14 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Organization {
-    @Override
-    public String toString() {
-        return "Organization{" +
-                "homePage=" + homePage +
-                ", title='" + title + '\'' +
-                '}';
+    private final Link homePage;
+    private final String title;
+
+    public Organization(String name, String url, LocalDate startDate, LocalDate endDate, String title, String description) {
+        new Job(startDate, endDate, description);
+        Objects.requireNonNull(title, "title shouldn't be null");
+        this.homePage = new Link(name, url);
+        this.title = title;
     }
 
     @Override
@@ -26,17 +28,23 @@ public class Organization {
         return Objects.hash(homePage, title);
     }
 
-    private final Link homePage;
-    private final String title;
+    @Override
+    public String toString() {
+        return "Organization{" +
+                "homePage=" + homePage +
+                ", title='" + title + '\'' +
+                '}';
+    }
 
     public class Job {
-        @Override
-        public String toString() {
-            return "Job{" +
-                    "startDate=" + startDate +
-                    ", endDate=" + endDate +
-                    ", description='" + description + '\'' +
-                    '}';
+        private final LocalDate startDate;
+        private final LocalDate endDate;
+        private final String description;
+
+        public Job(LocalDate startDate, LocalDate endDate, String description) {
+            this.startDate = startDate;
+            this.endDate = endDate;
+            this.description = description;
         }
 
         @Override
@@ -54,23 +62,13 @@ public class Organization {
             return Objects.hash(startDate, endDate, description);
         }
 
-        private final LocalDate startDate;
-        private final LocalDate endDate;
-        private final String description;
-
-        public Job(LocalDate startDate, LocalDate endDate, String description) {
-            this.startDate = startDate;
-            this.endDate = endDate;
-            this.description = description;
+        @Override
+        public String toString() {
+            return "Job{" +
+                    "startDate=" + startDate +
+                    ", endDate=" + endDate +
+                    ", description='" + description + '\'' +
+                    '}';
         }
     }
-
-    public Organization(String name, String url, LocalDate startDate, LocalDate endDate, String title, String description) {
-        new Job(startDate,endDate,description);
-        Objects.requireNonNull(title, "title shouldn't be null");
-        this.homePage = new Link(name, url);
-        this.title = title;
-    }
-
-
 }
