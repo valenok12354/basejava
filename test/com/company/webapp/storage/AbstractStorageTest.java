@@ -16,6 +16,7 @@ import static org.junit.Assert.assertSame;
 
 public class AbstractStorageTest {
     protected Storage storage;
+
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
@@ -26,6 +27,8 @@ public class AbstractStorageTest {
     private static final Resume resume2 = new Resume(UUID_2, "B");
     private static final Resume resume3 = new Resume(UUID_3, "C");
     private static final Resume resume4 = new Resume(UUID_4, "D");
+
+    ResumeTestData resume5 = ResumeTestData.getInstance(UUID_5);
 
     AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -107,7 +110,6 @@ public class AbstractStorageTest {
 
     @Test
     public void resumeTestDataCount() {
-        ResumeTestData resumeTestData = new ResumeTestData();
-
+        assertEquals(UUID_5, resume5.toString());
     }
 }

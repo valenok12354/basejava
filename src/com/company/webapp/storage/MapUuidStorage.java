@@ -37,8 +37,6 @@ public class MapUuidStorage extends AbstractStorage<String> {
         mapStorage.remove(searchKey);
     }
 
-
-
     @Override
     public void clear() {
         mapStorage.clear();

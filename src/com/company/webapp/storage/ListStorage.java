@@ -39,11 +39,6 @@ public class ListStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    protected List<Resume> doCopyAll() {
-        return null;
-    }
-
-    @Override
     protected boolean isExist(Integer searchKey) {
         return searchKey != null;
     }

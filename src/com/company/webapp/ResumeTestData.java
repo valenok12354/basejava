@@ -6,7 +6,15 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class ResumeTestData {
+
+    private final static ResumeTestData instance;
+
+    static {
+        instance = new ResumeTestData();
+    }
+
     public static void main(String[] args) {
+
         Resume resume = new Resume("1", "Григорий Кислин");
         List<String> contactDescription = new ArrayList<>(Arrays.asList("+7(921) 855-04825", "grigory.kislin", "gkislin@yandex.ru", "Профиль LinkedIn", "Профиль GitHub", "Профиль Stackoverflow", "Домашняя страница"));
 
@@ -80,4 +88,7 @@ public class ResumeTestData {
         System.out.println(sections.values());
     }
 
+    public static ResumeTestData getInstance(String uuid) {
+        return instance;
+    }
 }

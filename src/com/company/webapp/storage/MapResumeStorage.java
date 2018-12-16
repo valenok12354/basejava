@@ -41,11 +41,6 @@ public class MapResumeStorage extends AbstractStorage<Resume> {
     }
 
     @Override
-    protected List<Resume> doCopyAll() {
-        return null;
-    }
-
-    @Override
     public void clear() {
         map.clear();
     }
