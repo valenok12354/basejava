@@ -30,7 +30,6 @@ public class Resume {
         this.fullName = fullName;
     }
 
-
     public String getUuid() {
         return uuid;
     }

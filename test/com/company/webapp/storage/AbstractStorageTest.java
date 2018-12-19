@@ -108,7 +108,7 @@ public class AbstractStorageTest {
 
     @Test
     public void resumeTestDataEquals() {
-        Resume resume5 = ResumeTestData.getInstance(UUID_5,"AAA");
+        Resume resume5 = ResumeTestData.getInstance(UUID_5, "AAA");
         assertEquals(resume5, resume5);
     }
 }
