@@ -25,7 +25,6 @@ public class OrganizationSection extends AbstractSection {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(organizations);
     }
 
