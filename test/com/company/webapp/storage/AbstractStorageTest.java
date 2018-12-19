@@ -23,12 +23,10 @@ public class AbstractStorageTest {
     private static final String UUID_4 = "uuid4";
     private static final String UUID_5 = "uuid5";
 
-    private static final Resume resume1 = new Resume(UUID_1, "A");
-    private static final Resume resume2 = new Resume(UUID_2, "B");
-    private static final Resume resume3 = new Resume(UUID_3, "C");
-    private static final Resume resume4 = new Resume(UUID_4, "D");
-
-    ResumeTestData resume5 = ResumeTestData.getInstance(UUID_5);
+    private static final Resume resume1 = ResumeTestData.getInstance(UUID_1, "A");
+    private static final Resume resume2 = ResumeTestData.getInstance(UUID_2, "B");
+    private static final Resume resume3 = ResumeTestData.getInstance(UUID_3, "C");
+    private static final Resume resume4 = ResumeTestData.getInstance(UUID_4, "D");
 
     AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -109,7 +107,8 @@ public class AbstractStorageTest {
     }
 
     @Test
-    public void resumeTestDataCount() {
-        assertEquals(UUID_5, resume5.toString());
+    public void resumeTestDataEquals() {
+        Resume resume5 = ResumeTestData.getInstance(UUID_5,"AAA");
+        assertEquals(resume5, resume5);
     }
 }

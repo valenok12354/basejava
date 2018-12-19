@@ -18,7 +18,7 @@ public class Resume {
     }
 
     public void addContact(ContactType type, String value) {
-        contacts.put(type,value);
+        contacts.put(type, value);
     }
 
     public Resume(String fullName) {
@@ -29,7 +29,6 @@ public class Resume {
         this.uuid = uuid;
         this.fullName = fullName;
     }
-
 
 
     public String getUuid() {

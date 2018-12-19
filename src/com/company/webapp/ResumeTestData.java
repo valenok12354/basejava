@@ -2,15 +2,12 @@ package com.company.webapp;
 
 import com.company.webapp.model.*;
 
-import java.time.LocalDate;
 import java.util.*;
 
 public class ResumeTestData {
 
-    private final static ResumeTestData instance;
-
-    static {
-        instance = new ResumeTestData();
+    public static Resume getInstance(String uuid, String name) {
+        return new Resume(uuid, name);
     }
 
     public static void main(String[] args) {
@@ -50,22 +47,22 @@ public class ResumeTestData {
         List<Organization> experienceList = new ArrayList<>();
         List<Organization> educationalList = new ArrayList<>();
 
-        Organization firstOrganizaton = new Organization("Java Online Projects", "www.javaops.com", LocalDate.of(2013, 10, 1), LocalDate.now(), "Автор проекта", "Создание, организация и проведение Java онлайн проектов и стажировок.");
+//        Organization firstOrganizaton = new Organization("Java Online Projects", "www.javaops.com", LocalDate.of(2013, 10, 1), LocalDate.now(), "Автор проекта", "Создание, организация и проведение Java онлайн проектов и стажировок.");
+//
+//        Organization secondOrganizaton = new Organization("Wrike", "www.wrike.com", LocalDate.of(2014, 10, 1), LocalDate.of(2016, 01, 1), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.");
+//
+//        Organization thirdOrganizaton = new Organization("RIT Center", "www.rit.com", LocalDate.of(2012, 04, 1), LocalDate.of(2014, 10, 1), "Java архитектор", "Организация процесса разработки системы ERP для разных окружений: релизная политика, версионирование, ведение CI (Jenkins), миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx), AAA via SSO. Архитектура БД и серверной части системы. Разработка интергационных сервисов: CMIS, BPMN2, 1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). Интеграция Alfresco JLAN для online редактирование из браузера документов MS Office. Maven + plugin development, Ant, Apache Commons, Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, Unix shell remote scripting via ssh tunnels, PL/Python");
+//
+//        experienceList.add(0, firstOrganizaton);
+//        experienceList.add(1, secondOrganizaton);
+//        experienceList.add(2, thirdOrganizaton);
+//
+//        Organization firstEducational = new Organization("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики", "www.ifmo.ru", LocalDate.of(1987, 9, 1), LocalDate.of(1993, 7, 1), "Инженер (программист Fortran, C)", "");
+//
+//        Organization secondEducational = new Organization("Заочная физико-техническая школа при МФТИ", "www.school.mipt.ru", LocalDate.of(1984, 9, 1), LocalDate.of(1987, 6, 1), "школьник", "закончил с отличием");
 
-        Organization secondOrganizaton = new Organization("Wrike", "www.wrike.com", LocalDate.of(2014, 10, 1), LocalDate.of(2016, 01, 1), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.");
-
-        Organization thirdOrganizaton = new Organization("RIT Center", "www.rit.com", LocalDate.of(2012, 04, 1), LocalDate.of(2014, 10, 1), "Java архитектор", "Организация процесса разработки системы ERP для разных окружений: релизная политика, версионирование, ведение CI (Jenkins), миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx), AAA via SSO. Архитектура БД и серверной части системы. Разработка интергационных сервисов: CMIS, BPMN2, 1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). Интеграция Alfresco JLAN для online редактирование из браузера документов MS Office. Maven + plugin development, Ant, Apache Commons, Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, Unix shell remote scripting via ssh tunnels, PL/Python");
-
-        experienceList.add(0, firstOrganizaton);
-        experienceList.add(1, secondOrganizaton);
-        experienceList.add(2, thirdOrganizaton);
-
-        Organization firstEducational = new Organization("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики", "www.ifmo.ru", LocalDate.of(1987, 9, 1), LocalDate.of(1993, 7, 1), "Инженер (программист Fortran, C)", "");
-
-        Organization secondEducational = new Organization("Заочная физико-техническая школа при МФТИ", "www.school.mipt.ru", LocalDate.of(1984, 9, 1), LocalDate.of(1987, 6, 1), "школьник", "закончил с отличием");
-
-        educationalList.add(0, firstEducational);
-        educationalList.add(1, secondEducational);
+//        educationalList.add(0, firstEducational);
+//        educationalList.add(1, secondEducational);
 
         Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
         sections.put(SectionType.ACHIEVEMENT, listSectionAchievement);
@@ -88,7 +85,5 @@ public class ResumeTestData {
         System.out.println(sections.values());
     }
 
-    public static ResumeTestData getInstance(String uuid) {
-        return instance;
-    }
+
 }
