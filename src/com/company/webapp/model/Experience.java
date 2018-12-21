@@ -3,13 +3,13 @@ package com.company.webapp.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Job {
+public class Experience {
     private final LocalDate startDate;
     private final LocalDate endDate;
     private final String title;
     private final String description;
 
-    public Job(LocalDate startDate, LocalDate endDate, String title, String description) {
+    public Experience(LocalDate startDate, LocalDate endDate, String title, String description) {
         Objects.requireNonNull(startDate, "startDate shouldn't be null");
         Objects.requireNonNull(endDate, "endDate shouldn't be null");
         Objects.requireNonNull(title, "title shouldn't be null");
@@ -23,11 +23,11 @@ public class Job {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Job job = (Job) o;
-        return Objects.equals(startDate, job.startDate) &&
-                Objects.equals(endDate, job.endDate) &&
-                Objects.equals(title, job.title) &&
-                Objects.equals(description, job.description);
+        Experience experience = (Experience) o;
+        return Objects.equals(startDate, experience.startDate) &&
+                Objects.equals(endDate, experience.endDate) &&
+                Objects.equals(title, experience.title) &&
+                Objects.equals(description, experience.description);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class Job {
 
     @Override
     public String toString() {
-        return "Job{" +
+        return "Experience{" +
                 "startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", title='" + title + '\'' +

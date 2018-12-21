@@ -17,10 +17,6 @@ public class Resume {
         this.sections = sections;
     }
 
-    public void addContact(ContactType type, String value) {
-        contacts.put(type, value);
-    }
-
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
     }
