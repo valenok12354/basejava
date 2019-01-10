@@ -3,6 +3,7 @@ package com.company.webapp.storage;
 import com.company.webapp.exception.StorageException;
 import com.company.webapp.model.Resume;
 
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,12 +27,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    protected void doUpdate(Integer searchKey, Resume resume) {
+    protected void doUpdate(Resume resume, Integer searchKey) {
         storage[searchKey] = resume;
     }
 
     @Override
-    protected void doSave(Integer searchKey, Resume resume) {
+    protected void doSave( Resume resume, Integer searchKey) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
         } else {

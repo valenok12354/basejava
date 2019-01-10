@@ -2,6 +2,7 @@ package com.company.webapp.storage;
 
 import com.company.webapp.model.Resume;
 
+import java.io.InputStream;
 import java.util.*;
 
 public class MapUuidStorage extends AbstractStorage<String> {
@@ -23,12 +24,12 @@ public class MapUuidStorage extends AbstractStorage<String> {
     }
 
     @Override
-    protected void doUpdate(String searchKey, Resume resume) {
+    protected void doUpdate(Resume resume, String searchKey) {
         mapStorage.put(searchKey, resume);
     }
 
     @Override
-    protected void doSave(String searchKey, Resume resume) {
+    protected void doSave(Resume resume, String searchKey) {
         mapStorage.put(searchKey, resume);
     }
 

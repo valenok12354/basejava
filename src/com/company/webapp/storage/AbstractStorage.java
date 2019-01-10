@@ -4,11 +4,16 @@ import com.company.webapp.exception.ExistStorageException;
 import com.company.webapp.exception.NotExistStorageException;
 import com.company.webapp.model.Resume;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Comparator;
 import java.util.List;
 
 public abstract class AbstractStorage<SK> implements Storage {
     //private static Logger LOG = Logger.getLogger(AbstractStorage.class.getName());
+
+
 
     protected static final Comparator<Resume> COMPARATOR = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
 
@@ -16,13 +21,13 @@ public abstract class AbstractStorage<SK> implements Storage {
 
     protected abstract boolean isExist(SK searchKey);
 
-    protected abstract Resume doGet(SK searchKey);
-
     public abstract List<Resume> getList();
 
-    protected abstract void doUpdate(SK searchKey, Resume resume);
+    protected abstract Resume doGet(SK searchKey);
 
-    protected abstract void doSave(SK searchKey, Resume resume);
+    protected abstract void doUpdate(Resume resume, SK searchKey);
+
+    protected abstract void doSave(Resume resume, SK searchKey);
 
     protected abstract void doDelete(SK searchKey);
 
@@ -37,14 +42,14 @@ public abstract class AbstractStorage<SK> implements Storage {
     public void update(Resume resume) {
         //LOG.info("update " + resume);
         SK searchKey = getSearchKeyNotExist(resume.getUuid());
-        doUpdate(searchKey, resume);
+        doUpdate(resume, searchKey);
     }
 
     @Override
     public void save(Resume resume) {
         // LOG.info("save " + resume);
         SK searchKey = getSearchKeyExist(resume.getUuid());
-        doSave(searchKey, resume);
+        doSave(resume, searchKey);
     }
 
     @Override

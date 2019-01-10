@@ -18,11 +18,16 @@ public class MainFile {
     }
 
     public static void print(File directory) {
+        StringBuilder lineString = new StringBuilder(" ");
+        StringBuilder resultString = new StringBuilder(" ");
         for (File file : Objects.requireNonNull(directory.listFiles())) {
             if (file.isDirectory()) {
                 print(file);
             } else {
-                System.out.println(file);
+                for (int i = 0; i < Objects.requireNonNull(directory.listFiles()).length; ++i) {
+                    System.out.println(resultString.toString() +file);
+                    resultString.append(lineString);
+                }
             }
         }
     }

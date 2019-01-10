@@ -2,6 +2,7 @@ package com.company.webapp.storage;
 
 import com.company.webapp.model.Resume;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,12 +25,12 @@ public class ListStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    protected void doUpdate(Integer searchKey, Resume resume) {
+    protected void doUpdate(Resume resume, Integer searchKey) {
         listStorage.set(searchKey, resume);
     }
 
     @Override
-    protected void doSave(Integer searchKey, Resume resume) {
+    protected void doSave(Resume resume, Integer searchKey) {
         listStorage.add(resume);
     }
 
