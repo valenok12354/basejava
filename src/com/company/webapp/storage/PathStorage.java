@@ -10,30 +10,19 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-public class PathStorage extends AbstractStorage<Path> implements Strategy {
+public class PathStorage extends AbstractStorage<Path> {
     private Path directory;
+    Serializer serializer;
 
-    @Override
-    public void doExecute() {
-    }
-
-    protected void doWrite(Resume r, OutputStream os) throws IOException {
-    }
-
-    protected Resume doRead(InputStream is) throws IOException {
-        return null;
-    }
-
-    public PathStorage(String dir) {
+    public PathStorage(String dir, Serializer serializer) {
+        this.serializer = serializer;
         directory = Paths.get(dir);
         Objects.requireNonNull(directory, "directory must not be null");
         if (!Files.isDirectory(directory) || (!Files.isWritable(directory))) {
             throw new IllegalArgumentException(dir + " is not directory or is not writale");
         }
-        this.directory = directory;
     }
 
     @Override
@@ -48,13 +37,10 @@ public class PathStorage extends AbstractStorage<Path> implements Strategy {
     @Override
     public int size() {
         int length;
-        if (directory == null) {
-            throw new StorageException("Directory read error", null);
-        }
         try {
-            length = (int) Files.size(directory);
+            length= (int) Files.list(directory).count();
         } catch (IOException e) {
-            throw new StorageException("No files in the path ", null);
+            throw new StorageException("empty folder",directory.toString(),e);
         }
         return length;
     }
@@ -67,7 +53,7 @@ public class PathStorage extends AbstractStorage<Path> implements Strategy {
     @Override
     protected void doUpdate(Resume r, Path path) {
         try {
-            doWrite(r, new BufferedOutputStream(new FileOutputStream(path.toFile())));
+            serializer.doWrite(r, new BufferedOutputStream(new FileOutputStream(path.toFile())));
         } catch (IOException e) {
             throw new StorageException("Path write error", r.getUuid(), e);
         }
@@ -91,7 +77,7 @@ public class PathStorage extends AbstractStorage<Path> implements Strategy {
     @Override
     protected Resume doGet(Path path) {
         try {
-            return doRead(new BufferedInputStream(new FileInputStream(path.toFile())));
+            return serializer.doRead(new BufferedInputStream(new FileInputStream(path.toFile())));
         } catch (IOException e) {
             throw new StorageException("Path read error", path.getFileName().toString(), e);
         }
@@ -108,12 +94,12 @@ public class PathStorage extends AbstractStorage<Path> implements Strategy {
 
     @Override
     public List<Resume> getList() {
-        List<Resume> list = new ArrayList<>();
-//        try {
-//            list = (List<Resume>) Files.list(directory).collect(Collectors.toList());
-//        } catch (IOException e) {
-//            throw new StorageException("Path delete error", null, e);
-//        }
-        return list;
+        List<Resume> collect = new ArrayList<>();
+        try {
+            collect = Files.list(directory).map(this::doGet).collect(Collectors.toList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return collect;
     }
 }

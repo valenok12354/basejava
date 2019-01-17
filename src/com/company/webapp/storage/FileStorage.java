@@ -13,23 +13,12 @@ import java.util.Objects;
 
 import java.io.*;
 
-public abstract class FileStorage extends AbstractStorage<File> implements Strategy {
+public class FileStorage extends AbstractStorage<File> {
     private File directory;
+    Serializer serializer;
 
-    protected void doWrite(Resume r, OutputStream os) throws IOException {
-
-    }
-
-    protected Resume doRead(InputStream is) throws IOException {
-        return null;
-    }
-
-    @Override
-    public void doExecute() {
-
-    }
-
-    public FileStorage(File directory) {
+    public FileStorage(File directory, Serializer serializer) {
+        this.serializer = serializer;
         Objects.requireNonNull(directory, "directory must not be null");
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not directory");
@@ -67,7 +56,7 @@ public abstract class FileStorage extends AbstractStorage<File> implements Strat
     @Override
     protected void doUpdate(Resume r, File file) {
         try {
-            doWrite(r, new BufferedOutputStream(new FileOutputStream(file)));
+            serializer.doWrite(r, new BufferedOutputStream(new FileOutputStream(file)));
         } catch (IOException e) {
             throw new StorageException("File write error", r.getUuid(), e);
         }
@@ -91,7 +80,7 @@ public abstract class FileStorage extends AbstractStorage<File> implements Strat
     @Override
     protected Resume doGet(File file) {
         try {
-            return doRead(new BufferedInputStream(new FileInputStream(file)));
+            return serializer.doRead(new BufferedInputStream(new FileInputStream(file)));
         } catch (IOException e) {
             throw new StorageException("File read error", file.getName(), e);
         }
