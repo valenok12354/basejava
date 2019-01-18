@@ -2,12 +2,12 @@ package com.company.webapp.storage;
 
 import com.company.webapp.exception.StorageException;
 import com.company.webapp.model.Resume;
+import com.company.webapp.storage.serializer.Serializer;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -36,13 +36,11 @@ public class PathStorage extends AbstractStorage<Path> {
 
     @Override
     public int size() {
-        int length;
         try {
-            length= (int) Files.list(directory).count();
+            return (int) Files.list(directory).count();
         } catch (IOException e) {
-            throw new StorageException("empty folder",directory.toString(),e);
+            throw new StorageException("empty folder", directory.toString(), e);
         }
-        return length;
     }
 
     @Override
@@ -94,12 +92,10 @@ public class PathStorage extends AbstractStorage<Path> {
 
     @Override
     public List<Resume> getList() {
-        List<Resume> collect = new ArrayList<>();
         try {
-            collect = Files.list(directory).map(this::doGet).collect(Collectors.toList());
+            return Files.list(directory).map(this::doGet).collect(Collectors.toList());
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new StorageException("No files to convert into list", directory.getFileName().toString(), e);
         }
-        return collect;
     }
 }

@@ -1,4 +1,4 @@
-package com.company.webapp.storage;
+package com.company.webapp.storage.serializer;
 
 
 import com.company.webapp.model.Resume;

@@ -2,7 +2,7 @@ package com.company.webapp.storage;
 
 public class ListStorageTest extends AbstractStorageTest {
 
-       public ListStorageTest() {
+    public ListStorageTest() {
         super(new ListStorage());
     }
 }

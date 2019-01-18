@@ -1,6 +1,6 @@
 package com.company.webapp.storage;
 
-import java.io.File;
+import com.company.webapp.storage.serializer.ObjectStreamStorage;
 
 public class ObjectPathStorageTest extends AbstractStorageTest {
     public ObjectPathStorageTest() {
