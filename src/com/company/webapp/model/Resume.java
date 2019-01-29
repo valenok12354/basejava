@@ -1,23 +1,28 @@
 package com.company.webapp.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
-import java.util.*;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 
-public class Resume implements Serializable {
-    private  static final long serialVersionUID = 1L;
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Resume implements Comparable<Resume>, Serializable {
+    private static final long serialVersionUID = 1L;
 
-    private final String uuid;
-    private final String fullName;
+    // Unique identifier
+    private String uuid;
 
-    private Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-    private Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
+    private String fullName;
 
-    public void setContacts(Map<ContactType, String> contacts) {
-        this.contacts = contacts;
-    }
+    private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+    private final Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
 
-    public void setSections(Map<SectionType, AbstractSection> sections) {
-        this.sections = sections;
+    public Resume() {
     }
 
     public Resume(String fullName) {
@@ -25,6 +30,8 @@ public class Resume implements Serializable {
     }
 
     public Resume(String uuid, String fullName) {
+        Objects.requireNonNull(uuid, "uuid must not be null");
+        Objects.requireNonNull(fullName, "fullName must not be null");
         this.uuid = uuid;
         this.fullName = fullName;
     }
@@ -35,6 +42,30 @@ public class Resume implements Serializable {
 
     public String getFullName() {
         return fullName;
+    }
+
+    public Map<ContactType, String> getContacts() {
+        return contacts;
+    }
+
+    public Map<SectionType, Section> getSections() {
+        return sections;
+    }
+
+    public String getContact(ContactType type) {
+        return contacts.get(type);
+    }
+
+    public Section getSection(SectionType type) {
+        return sections.get(type);
+    }
+
+    public void addContact(ContactType type, String value) {
+        contacts.put(type, value);
+    }
+
+    public void addSection(SectionType type, Section section) {
+        sections.put(type, section);
     }
 
     @Override
@@ -55,11 +86,12 @@ public class Resume implements Serializable {
 
     @Override
     public String toString() {
-        return "" +
-                "uuid='" + uuid + '\'' +
-                ", fullName=" + fullName + '\'' +
-                ", " + contacts +
-                ", " + sections +
-                ' ';
+        return uuid + '(' + fullName + ')';
+    }
+
+    @Override
+    public int compareTo(Resume o) {
+        int cmp = fullName.compareTo(o.fullName);
+        return cmp != 0 ? cmp : uuid.compareTo(o.uuid);
     }
 }

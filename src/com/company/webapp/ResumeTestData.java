@@ -48,21 +48,21 @@ public class ResumeTestData {
         experince.add(experience1);
         experince.add(experience2);
 
-        Organization firstOrganizaton = new Organization("Java Online Projects", "www.javaops.com", experince);
-        Organization secondOrganizaton = new Organization("Wrike", "www.wrike.com", experince);
+//        Organization firstOrganizaton = new Organization("Java Online Projects", "www.javaops.com", experince);
+//        Organization secondOrganizaton = new Organization("Wrike", "www.wrike.com", experince);
+//
+//        experienceList.add(0, firstOrganizaton);
+//        experienceList.add(1, secondOrganizaton);
+//        Experience experience3 = new Experience(LocalDate.of(1987, 9, 1), LocalDate.of(1993, 7, 1),
+//                "Инженер (программист Fortran, C)", "");
+//        Organization firstEducational = new Organization("Санкт-Петербургский национальный исследовательский университет информационных технологий, " +
+//                "механики и оптики", "www.ifmo.ru", experince );
 
-        experienceList.add(0, firstOrganizaton);
-        experienceList.add(1, secondOrganizaton);
-        Experience experience3 = new Experience(LocalDate.of(1987, 9, 1), LocalDate.of(1993, 7, 1),
-                "Инженер (программист Fortran, C)", "");
-        Organization firstEducational = new Organization("Санкт-Петербургский национальный исследовательский университет информационных технологий, " +
-                "механики и оптики", "www.ifmo.ru", experince );
 
-
-        educationalList.add(0, firstEducational);
+//        educationalList.add(0, firstEducational);
 //        educationalList.add(1, secondEducational);
 
-        Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
+        Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
         sections.put(SectionType.ACHIEVEMENT, listSectionAchievement);
         sections.put(SectionType.PERSONAL, listSectionPersonal);
         sections.put(SectionType.QUALIFICATIONS, listSectionQualification);
@@ -81,10 +81,10 @@ public class ResumeTestData {
             contacts.put(testContact, contactDescription.get(testContact.ordinal()));
         }
 
-        resume.setContacts(contacts);
-        resume.setSections(sections);
-
-        System.out.println(resume.getFullName() + " " + contacts);
+//        resume.setContacts(contacts);
+//        resume.setSections(sections);
+//
+//        System.out.println(resume.getFullName() + " " + contacts);
         System.out.println(sections.values());
 
         return new Resume(uuid, name);

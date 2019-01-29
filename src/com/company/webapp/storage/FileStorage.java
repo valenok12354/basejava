@@ -2,7 +2,7 @@ package com.company.webapp.storage;
 
 import com.company.webapp.exception.StorageException;
 import com.company.webapp.model.Resume;
-import com.company.webapp.storage.serializer.Serializer;
+import com.company.webapp.storage.serializer.StreamSerializer;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,9 +14,9 @@ import java.io.*;
 
 public class FileStorage extends AbstractStorage<File> {
     private File directory;
-    Serializer serializer;
+    StreamSerializer serializer;
 
-    public FileStorage(File directory, Serializer serializer) {
+    public FileStorage(File directory, StreamSerializer serializer) {
         this.serializer = serializer;
         Objects.requireNonNull(directory, "directory must not be null");
         if (!directory.isDirectory()) {
