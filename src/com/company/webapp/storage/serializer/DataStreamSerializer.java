@@ -1,5 +1,6 @@
 package com.company.webapp.storage.serializer;
 
+import com.company.webapp.exception.NotExistStorageException;
 import com.company.webapp.model.*;
 
 import java.io.*;
@@ -37,7 +38,16 @@ public class DataStreamSerializer implements StreamSerializer {
                         writeCollection(dos, ((ListSection) section).getItems(), dos::writeUTF);
                         break;
                     case EXPERIENCE:
+                    case EDUCATION:
+                        writeCollection(dos, ((OrganizationSection) section).getOrganizations(), organization -> {
+                            try {
+                                dos.writeUTF(organization.getHomePage().getName());
+                                dos.writeUTF(organization.getHomePage().getUrl());
+                            } catch (NotExistStorageException e) {
+                                throw new NotExistStorageException(organization.getHomePage().getName());
+                            }
 
+                        });
                         break;
                 }
             });
